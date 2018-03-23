@@ -34,6 +34,8 @@ model.add(Dense(6, activation=None)) #or linear
 #model.compile(Adam(lr=.0001), loss='sparse_categorical_crossentropy', metrics=['accuracy']) 
 
 #model.compile(Adam(lr=.0001), loss='mean_squared_error', metrics=['accuracy'])
+adam = Adam(lr=0.0001)
+model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
 
 model.save('vgg16_edit.h5')
 model.summary()

@@ -25,9 +25,10 @@ import cv2
 model = load_model('trained_model.h5')
 
 
-mypath='../image-generator-visp-files/binary/generated_images' 
-img = cv2.imread(mypath+'/2.jpg')
-img_1 = cv2.resize(img, dsize=(224, 224), interpolation=cv2.INTER_CUBIC)
+#mypath='../image-generator-visp-files/binary/generated_images' 
+mypath='../data'
+img_1 = cv2.imread(mypath+'/lel.jpg')
+#img_1 = cv2.resize(img, dsize=(224, 224), interpolation=cv2.INTER_CUBIC)
 img_main = img_1 [np.newaxis,...]  # dimension added to fit input size
 
 

@@ -1,3 +1,13 @@
+import tensorflow as tf
+from keras.backend.tensorflow_backend import set_session
+config = tf.ConfigProto()
+config.gpu_options.allow_growth = True
+config.gpu_options.visible_device_list = "0"
+#session = tf.Session(config=config)
+set_session(tf.Session(config=config))
+
+
+
 import os
 import numpy as np
 from keras import optimizers
@@ -20,11 +30,11 @@ np.random.seed(7) # for reproducibility
 
 
 
-batch_size = 14
+batch_size = 7
 
 #loading pretrained and edited model
 #model = load_model('vgg16_edit.h5')
-model = load_model('trained_model.h5')
+model = load_model('vgg16_edit.h5')
 
 
 y_filename ='./data/data.txt'
@@ -51,9 +61,10 @@ callbacks_list = [checkpoint, metrics]
 # Configure the training process:
 print('Preparing training ...')
 #adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
-adam = Adam(lr=0.0001)
+
 #sgd = optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
-model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy']) #euclidean
+#adam = Adam(lr=0.0001)
+#model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy']) #euclidean
 
 
 # Train:
@@ -67,7 +78,7 @@ end = time.time()
 print ("Model took %0.2f seconds to train"%(end - start))
 
 
-#model.save_weights('trained_model_weights.h5')
+model.save_weights('trained_model_weights.h5')
 model.save('trained_model.h5')
 
 #utils.eml_save_history(hist, metrics)
