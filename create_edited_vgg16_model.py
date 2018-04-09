@@ -1,4 +1,3 @@
-
 import keras
 from keras.models import Sequential
 from keras.layers import Activation
@@ -11,7 +10,10 @@ import matplotlib.pyplot as plt
 from keras.utils import plot_model 
 
 
-vgg16_model = keras.applications.vgg16.VGG16()
+#vgg16_model = keras.applications.vgg16.VGG16()
+
+vgg16_model = keras.applications.vgg16.VGG16(include_top=True, weights='imagenet', input_tensor=None, input_shape=None, pooling=None, classes=1000)
+
 
 #vgg16_model.summary()
 
@@ -21,21 +23,19 @@ for layer in vgg16_model.layers:
     model.add(layer)
 
 
-#model.layers.pop()
+model.layers.pop()
 
 
 for layer in model.layers:
     layer.trainable = True
 
 
-model.add(Dense(6, activation=None)) #or linear
+model.add(Dense(6, activation='linear')) #or linear
 
 #compile model before saving
 #model.compile(Adam(lr=.0001), loss='sparse_categorical_crossentropy', metrics=['accuracy']) 
 
 #model.compile(Adam(lr=.0001), loss='mean_squared_error', metrics=['accuracy'])
-adam = Adam(lr=0.0001)
-model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
 
 model.save('vgg16_edit.h5')
 model.summary()

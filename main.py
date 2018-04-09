@@ -1,87 +1,109 @@
-import tensorflow as tf
-from keras.backend.tensorflow_backend import set_session
-config = tf.ConfigProto()
-config.gpu_options.allow_growth = True
-config.gpu_options.visible_device_list = "0"
-#session = tf.Session(config=config)
-set_session(tf.Session(config=config))
+def vgg16():
+	import keras
+	from keras.models import Sequential
+	from keras.layers import Activation
+	from keras.layers.core import Dense, Flatten
+	from keras.optimizers import Adam
+	from keras.metrics import categorical_crossentropy
+	from keras.layers.normalization import BatchNormalization
+	from keras.layers.convolutional import *
+	import matplotlib.pyplot as plt
+	from keras.utils import plot_model 
+
+
+	vgg16_model = keras.applications.vgg16.VGG16()
+
+	#vgg16_model.summary()
+
+
+	model = Sequential()
+	for layer in vgg16_model.layers:
+		model.add(layer)
+	
+	model.layers.pop()
+	model.layers.pop()
+	model.layers.pop()
+
+	for layer in model.layers:
+		layer.trainable = False
+	
+	model.add(Dense(6, activation=None))
+	
+	model.summary()
+	return model
+
+
+	
 
 
 
-import os
-import numpy as np
-from keras import optimizers
-from keras.models import Sequential
-from keras.models import load_model
-from keras.layers import Activation
-from keras.layers.core import Dense, Flatten
-from keras.optimizers import Adam
-from keras.metrics import categorical_crossentropy
-import matplotlib.pyplot as plt
-import h5py
-from keras.utils import plot_model
-#from keras.callbacks import ModelCheckpoint
-import utils
-#import models
-import time
-from keras.callbacks import ModelCheckpoint
+if __name__ == "__main__":
+	import os
+	import numpy as np
+	from keras import optimizers
+	from keras.models import Sequential
+	from keras.models import load_model
+	from keras.layers import Activation
+	from keras.layers.core import Dense, Flatten
+	from keras.optimizers import Adam
+	from keras.metrics import categorical_crossentropy
+	import matplotlib.pyplot as plt
+	import h5py
+	from keras.utils import plot_model
+	#from keras.callbacks import ModelCheckpoint
+	import utils
+	#import models
+	import time
+	from keras.callbacks import ModelCheckpoint
 
-np.random.seed(7) # for reproducibility
-
-
-
-batch_size = 7
-
-#loading pretrained and edited model
-#model = load_model('vgg16_edit.h5')
-model = load_model('vgg16_edit.h5')
+	np.random.seed(7) # for reproducibility
 
 
-y_filename ='./data/data.txt'
-y_data = np.loadtxt(y_filename, delimiter='  ')
 
-y_data_train = y_data[:]
+	batch_size = 14
 
-#########################################
-
-h5f = h5py.File('images_in_h5_format.h5','r')
-x_data_train = h5f['dataset_1'][:]
+	#model = load_model('vgg16_edit.h5')
+	model = vgg16()
+	model.load_weights('trained_model_weights.h5')
 
 
-# ======================================================================
-# Run training process:
-# Set callbacks:
-# => callbacks are used to define operations during training. Here fore example I use a callback called "checkpoint" to save the weights of my model after each epoch. Then I define another one to compute my custom metrics.
-'''
-checkpoint     = ModelCheckpoint('weights.epoch{epoch:02d}.h5', monitor='val_loss', verbose=0, save_best_only=False, save_weights_only=False, mode='auto', period=1)
-metrics        = utils.Metrics()
-callbacks_list = [checkpoint, metrics]
-'''
-# ======================================================================                     
-# Configure the training process:
-print('Preparing training ...')
-#adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
+	y_filename ='./data/data.txt'
+	y_data = np.loadtxt(y_filename, delimiter='  ')
 
-#sgd = optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
-#adam = Adam(lr=0.0001)
-#model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy']) #euclidean
+	y_data_train = y_data[:]
+
+	#########################################
+
+	h5f = h5py.File('images_in_h5_format.h5','r')
+	x_data_train = h5f['dataset_1'][:]
 
 
-# Train:
-print('Start training ...')
-start = time.time()
-hist = model.fit(x = x_data_train, y = y_data_train,
-          epochs=10,
-          batch_size=batch_size, validation_split = 0.20, shuffle = True, verbose = 1)  
-          #By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
-end = time.time()
-print ("Model took %0.2f seconds to train"%(end - start))
+
+	# ======================================================================                     
+	# Configure the training process:
+	print('Preparing training ...')
+	#adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
+	#adam = Adam(lr=0.0001)
+	adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
+	#sgd = optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+	model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
 
 
-model.save_weights('trained_model_weights.h5')
-model.save('trained_model.h5')
+	# Train:
+	print('Start training ...')
+	start = time.time()
+	hist = model.fit(x = x_data_train, y = y_data_train,
+		  epochs=5,
+		  batch_size=batch_size, validation_split = 0.20, shuffle = True, verbose = 1)  
+		  #By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
+	end = time.time()
+	print ("Model took %0.2f seconds to train"%(end - start))
 
-#utils.eml_save_history(hist, metrics)
+
+	model.save_weights('trained_model_weights.h5')
+	model.save('trained_model.h5')
+
+	#utils.eml_save_history(hist, metrics)
 
 
 
