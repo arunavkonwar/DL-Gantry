@@ -55,6 +55,7 @@ if __name__ == "__main__":
 
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
+	#model.load_weights('trained_model_weights.h5')
 
 	y_filename ='./data/data.txt'
 	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1])
