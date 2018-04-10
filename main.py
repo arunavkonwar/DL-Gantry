@@ -40,7 +40,8 @@ if __name__ == "__main__":
 	from keras.layers.core import Dense, Flatten
 	from keras.optimizers import Adam
 	from keras.metrics import categorical_crossentropy
-	import matplotlib.pyplot as plt
+	#import matplotlib.pyplot as plt
+	from matplotlib import pyplot as plt
 	import h5py
 	from keras.utils import plot_model
 	#from keras.callbacks import ModelCheckpoint
@@ -48,15 +49,14 @@ if __name__ == "__main__":
 	#import models
 	import time
 	from keras.callbacks import ModelCheckpoint
-	import matplotlib.pyplot as plt
 
 	np.random.seed(7) # for reproducibility
 
-	batch_size = 4
+	batch_size = 14
 
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
-	model.load_weights('trained_model_weights.h5')
+	#model.load_weights('trained_model_weights.h5')
 
 	y_filename ='./data/data.txt'
 	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1])
@@ -75,15 +75,15 @@ if __name__ == "__main__":
 	print('Preparing training ...')
 	#adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
 	#adam = Adam(lr=0.0001)
-	adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
+	adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0, amsgrad=False)
 	model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
 
-	epochs=10
+	epochs=1
 	# Train:
 	print('Start training ...')
 	start = time.time()
 	hist = model.fit(x = x_data_train, y = y_data_train,
-		  epochs=10,
+		  epochs=1,
 		  batch_size=batch_size, validation_split = 0.20, shuffle = True, verbose = 1)  
 		  #By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
 	end = time.time()
@@ -91,36 +91,30 @@ if __name__ == "__main__":
 
 
 	model.save_weights('trained_model_weights.h5')
-	#model.save('trained_model.h5')
-'''
-	train_loss = hist.history['loss']
-	val_loss = hist.history['val_loss']
-	train_acc = hist.history['acc']
-	val_acc = hist.history['val_acc']
+	model.save('trained_model.h5')
 	
-	xc = range(epochs)
-	
-	plt.figure(1,figsize=(7,5))
-	plt.plot(xc,train_loss)
-	plt.plot(xc,val_loss)
-	plt.xlabel('num of Epochs')
-	plt.ylabel('loss')
-	plt.title('train_loss vs val_loss')
-	plt.grid(True)
-	plt.legend(['train','val'])
-	print plt.style.available # use bmh, classic,ggplot for big pictures
-	plt.style.use(['classic'])
-	plt.savefig('train_loss vs val_loss.png')
+	print(history.history.keys()) 
 
-	plt.figure(2,figsize=(7,5))
-	plt.plot(xc,train_acc)
-	plt.plot(xc,val_acc)
-	plt.xlabel('num of Epochs')
-	plt.ylabel('accuracy')
-	plt.title('train_acc vs val_acc')
-	plt.grid(True)
-	plt.legend(['train','val'],loc=4)
-	#print plt.style.available # use bmh, classic,ggplot for big pictures
-	plt.style.use(['classic'])
-	plt.savefig('train_acc vs val_acc')
-'''
+	plt.figure(1)  
+
+	# summarize history for accuracy  
+
+	plt.subplot(211)  
+	plt.plot(history.history['acc'])  
+	plt.plot(history.history['val_acc'])  
+	plt.title('model accuracy')  
+	plt.ylabel('accuracy')  
+	plt.xlabel('epoch')  
+	plt.legend(['train', 'test'], loc='upper left')  
+
+	# summarize history for loss  
+
+	plt.subplot(212)  
+	plt.plot(history.history['loss'])  
+	plt.plot(history.history['val_loss'])  
+	plt.title('model loss')  
+	plt.ylabel('loss')  
+	plt.xlabel('epoch')  
+	plt.legend(['train', 'test'], loc='upper left')  
+	#plt.show()
+	plt.savefig('visualization.png')
