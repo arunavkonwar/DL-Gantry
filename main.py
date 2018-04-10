@@ -79,6 +79,11 @@ if __name__ == "__main__":
 	#adam = Adam(lr=0.0001)
 	adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0, amsgrad=False)
 	model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
+	
+	#update
+	filepath="best_model.hdf5"	
+	checkpoint = ModelCheckpoint(filepath, monitor='val_loss', verbose=1, save_best_only=True, mode='max')
+	callbacks_list = [checkpoint] 
 
 	iter=2
 	# Train:
@@ -86,7 +91,7 @@ if __name__ == "__main__":
 	start = time.time()
 	history = model.fit(x = x_data_train, y = y_data_train,
 		  epochs=iter,
-		  batch_size=batch_size, validation_split = 0.20, shuffle = True, verbose = 1)  
+		  batch_size=batch_size, validation_split = 0.20, shuffle = True, verbose = 1, callbacks=callbacks_list)  
 		  #By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
 	end = time.time()
 	print ("Model took %0.2f seconds to train"%(end - start))
@@ -120,3 +125,8 @@ if __name__ == "__main__":
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
 	plt.savefig('visualization1.png')
+
+	#update
+	loss_history = history
+	numpy_loss_history = numpy.array(loss_history)
+	numpy.savetxt("history.txt", numpy_loss_history, delimiter=",")
