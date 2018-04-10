@@ -48,14 +48,15 @@ if __name__ == "__main__":
 	#import models
 	import time
 	from keras.callbacks import ModelCheckpoint
+	import matplotlib.pyplot as plt
 
 	np.random.seed(7) # for reproducibility
 
-	batch_size = 14
+	batch_size = 4
 
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
-	#model.load_weights('trained_model_weights.h5')
+	model.load_weights('trained_model_weights.h5')
 
 	y_filename ='./data/data.txt'
 	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1])
@@ -77,12 +78,12 @@ if __name__ == "__main__":
 	adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
 	model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
 
-	epochs=1
+	epochs=10
 	# Train:
 	print('Start training ...')
 	start = time.time()
 	hist = model.fit(x = x_data_train, y = y_data_train,
-		  epochs=1,
+		  epochs=10,
 		  batch_size=batch_size, validation_split = 0.20, shuffle = True, verbose = 1)  
 		  #By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
 	end = time.time()
@@ -90,8 +91,8 @@ if __name__ == "__main__":
 
 
 	model.save_weights('trained_model_weights.h5')
-	model.save('trained_model.h5')
-
+	#model.save('trained_model.h5')
+'''
 	train_loss = hist.history['loss']
 	val_loss = hist.history['val_loss']
 	train_acc = hist.history['acc']
@@ -122,3 +123,4 @@ if __name__ == "__main__":
 	#print plt.style.available # use bmh, classic,ggplot for big pictures
 	plt.style.use(['classic'])
 	plt.savefig('train_acc vs val_acc')
+'''
