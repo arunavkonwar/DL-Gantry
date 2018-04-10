@@ -56,7 +56,7 @@ if __name__ == "__main__":
 
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
-	#model.load_weights('trained_model_weights.h5')
+	model.load_weights('trained_model_weights.h5')
 
 	y_filename ='./data/data.txt'
 	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1])
@@ -78,12 +78,12 @@ if __name__ == "__main__":
 	adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0, amsgrad=False)
 	model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
 
-	epochs=1
+	epochs=5
 	# Train:
 	print('Start training ...')
 	start = time.time()
-	hist = model.fit(x = x_data_train, y = y_data_train,
-		  epochs=1,
+	history = model.fit(x = x_data_train, y = y_data_train,
+		  epochs=5,
 		  batch_size=batch_size, validation_split = 0.20, shuffle = True, verbose = 1)  
 		  #By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
 	end = time.time()
@@ -91,7 +91,7 @@ if __name__ == "__main__":
 
 
 	model.save_weights('trained_model_weights.h5')
-	model.save('trained_model.h5')
+	#model.save('trained_model.h5')
 	
 	print(history.history.keys()) 
 
@@ -117,4 +117,4 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'test'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization.png')
+	plt.savefig('visualization1.png')
