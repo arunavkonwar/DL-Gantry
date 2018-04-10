@@ -87,7 +87,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=2
+	iter=1
 	# Train:
 	print('Start training ...')
 	start = time.time()
