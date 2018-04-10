@@ -40,7 +40,8 @@ if __name__ == "__main__":
 	from keras.layers.core import Dense, Flatten
 	from keras.optimizers import Adam
 	from keras.metrics import categorical_crossentropy
-	import matplotlib.pyplot as plt
+	#import matplotlib.pyplot as plt
+	from matplotlib import pyplot as plt
 	import h5py
 	from keras.utils import plot_model
 	#from keras.callbacks import ModelCheckpoint
