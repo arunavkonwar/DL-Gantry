@@ -81,9 +81,11 @@ if __name__ == "__main__":
 	model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
 	
 	#update
+	'''
 	filepath="best_model.hdf5"	
 	checkpoint = ModelCheckpoint(filepath, monitor='val_loss', verbose=1, save_best_only=True, mode='max')
 	callbacks_list = [checkpoint] 
+	'''
 
 	iter=2
 	# Train:
@@ -91,7 +93,7 @@ if __name__ == "__main__":
 	start = time.time()
 	history = model.fit(x = x_data_train, y = y_data_train,
 		  epochs=iter,
-		  batch_size=batch_size, validation_split = 0.20, shuffle = True, verbose = 1, callbacks=callbacks_list)  
+		  batch_size=batch_size, validation_split = 0.20, shuffle = True, verbose = 1)  
 		  #By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
 	end = time.time()
 	print ("Model took %0.2f seconds to train"%(end - start))
