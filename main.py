@@ -87,7 +87,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=1
+	iter=50
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -129,6 +129,8 @@ if __name__ == "__main__":
 	plt.savefig('visualization1.png')
 
 	#update
+	'''
 	loss_history = history
-	numpy_loss_history = numpy.array(loss_history)
-	numpy.savetxt("history.txt", numpy_loss_history, delimiter=",")
+	numpy_loss_history = np.array(loss_history)
+	np.savetxt("history.txt", numpy_loss_history, delimiter=",")
+	'''
