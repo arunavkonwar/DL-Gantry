@@ -18,12 +18,16 @@ def vgg16():
 		model.add(layer)
 	
 	model.layers.pop()
-	
+	#model.layers.pop()
+	#model.layers.pop()
+
 	model.add(Dense(2, activation=None))
 	
 	for layer in model.layers:
 		layer.trainable = True
-		
+
+	#model.add(Dense(2, activation='linear'))
+	
 	model.summary()
 	return model
 
@@ -38,7 +42,7 @@ if __name__ == "__main__":
 	from keras.models import load_model
 	from keras.layers import Activation
 	from keras.layers.core import Dense, Flatten
-	from keras.optimizers import Adam
+	from keras.optimizers import Adam, SGD
 	from keras.metrics import categorical_crossentropy
 	#import matplotlib.pyplot as plt
 	import matplotlib
@@ -54,20 +58,20 @@ if __name__ == "__main__":
 
 	np.random.seed(7) # for reproducibility
 
-	batch_size = 14
+	batch_size = 56
 
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
-	#model.load_weights('trained_model_weights.h5')
+	#model.load_weights('trained_model_weights_dense_trainable_sgd_pose.h5')
 
-	y_filename ='./data/data.txt'
+	y_filename ='./data/data_8k.txt'
 	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1])
 
 	y_data_train = y_data[:]
 
 	#########################################
 
-	h5f = h5py.File('images_in_h5_format.h5','r')
+	h5f = h5py.File('images_in_h5_format_8k.h5','r')
 	x_data_train = h5f['dataset_1'][:]
 
 
@@ -76,9 +80,11 @@ if __name__ == "__main__":
 	# Configure the training process:
 	print('Preparing training ...')
 	#adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
-	#adam = Adam(lr=0.0001)
-	adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0, amsgrad=False)
-	model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
+
+	sgd = SGD(lr=0.00001, momentum=0.9, decay=0.00138, nesterov=False)	
+	#adam = Adam(lr=0.01, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
+	#model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
+	model.compile(optimizer=sgd, loss='mean_squared_error', metrics=['accuracy'])
 	
 	#update
 	'''
@@ -87,7 +93,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=50
+	iter=200
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -99,7 +105,7 @@ if __name__ == "__main__":
 	print ("Model took %0.2f seconds to train"%(end - start))
 
 
-	model.save_weights('trained_model_weights.h5')
+	model.save_weights('trained_model_weights_dense_trainable_sgd_pose1-200.h5')
 	#model.save('trained_model.h5')
 	
 	print(history.history.keys()) 
@@ -126,7 +132,7 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization1.png')
+	plt.savefig('visualization_dense_trainable_sgd_pose1-200.png')
 
 	#update
 	'''

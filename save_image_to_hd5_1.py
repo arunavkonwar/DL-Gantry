@@ -21,7 +21,7 @@ for n in range(0, len(onlyfiles)):
   images[n] = cv2.imread( join(mypath,onlyfiles[n]) )
   #images[n] = cv2.resize(loaded_img, dsize=(224, 224), interpolation=cv2.INTER_CUBIC)
 
-h5f = h5py.File('images_in_h5_format.h5', 'w')
+h5f = h5py.File('images_in_h5_format_8000.h5', 'w')
 h5f.create_dataset('dataset_1', data=images)
 print('********************\nTRAINING set images saved to hdf5')
 
