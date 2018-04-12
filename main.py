@@ -66,13 +66,19 @@ if __name__ == "__main__":
 
 	y_filename ='./data/data_8k.txt'
 	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1])
-
 	y_data_train = y_data[:]
 
 	#########################################
 
 	h5f = h5py.File('images_in_h5_format_8k.h5','r')
 	x_data_train = h5f['dataset_1'][:]
+	
+	h5f = h5py.File('validation_images_8k.h5','r')
+	x_data_valid = h5f['dataset_1'][:]
+	
+	y_filename ='./data/validation_data_8k.txt'
+	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1])
+	y_data_valid = y_data[:]
 
 
 
@@ -93,13 +99,13 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=100
+	iter=3
 	# Train:
 	print('Start training ...')
 	start = time.time()
 	history = model.fit(x = x_data_train, y = y_data_train,
 		  epochs=iter,
-		  batch_size=batch_size, validation_split = 0.20, shuffle = True, verbose = 1)  
+		  batch_size=batch_size, validation_data = ( x_data_valid, y_data_valid ), shuffle = True, verbose = 1)  
 		  #By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
 	end = time.time()
 	print ("Model took %0.2f seconds to train"%(end - start))
@@ -128,10 +134,10 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_dense_trainable_sgd_pose1-100.png')
+	plt.savefig('visualization_sgd_valid_1-100.png')
 
 
-	model.save_weights('trained_model_weights_dense_trainable_sgd_pose1-100.h5')
+	model.save_weights('trained_model_sgd_valid_1-100.h5')
 	#model.save('trained_model.h5')
 	
 	
