@@ -58,7 +58,7 @@ if __name__ == "__main__":
 
 	np.random.seed(7) # for reproducibility
 
-	batch_size = 56
+	batch_size = 14
 
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
@@ -93,7 +93,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=200
+	iter=30
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -105,7 +105,7 @@ if __name__ == "__main__":
 	print ("Model took %0.2f seconds to train"%(end - start))
 
 
-	model.save_weights('trained_model_weights_dense_trainable_sgd_pose1-200.h5')
+	model.save_weights('trained_model_weights_dense_trainable_sgd_pose1-30.h5')
 	#model.save('trained_model.h5')
 	
 	print(history.history.keys()) 
@@ -132,7 +132,7 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_dense_trainable_sgd_pose1-200.png')
+	plt.savefig('visualization_dense_trainable_sgd_pose1-30.png')
 
 	#update
 	'''
