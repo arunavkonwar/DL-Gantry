@@ -93,7 +93,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=30
+	iter=100
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -128,10 +128,10 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_dense_trainable_sgd_pose1-30.png')
+	plt.savefig('visualization_dense_trainable_sgd_pose1-100.png')
 
 
-	model.save_weights('trained_model_weights_dense_trainable_sgd_pose1-30.h5')
+	model.save_weights('trained_model_weights_dense_trainable_sgd_pose1-100.h5')
 	#model.save('trained_model.h5')
 	
 	
