@@ -103,10 +103,6 @@ if __name__ == "__main__":
 		  #By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
 	end = time.time()
 	print ("Model took %0.2f seconds to train"%(end - start))
-
-
-	model.save_weights('trained_model_weights_dense_trainable_sgd_pose1-30.h5')
-	#model.save('trained_model.h5')
 	
 	print(history.history.keys()) 
 
@@ -133,6 +129,12 @@ if __name__ == "__main__":
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
 	plt.savefig('visualization_dense_trainable_sgd_pose1-30.png')
+
+
+	model.save_weights('trained_model_weights_dense_trainable_sgd_pose1-30.h5')
+	#model.save('trained_model.h5')
+	
+	
 
 	#update
 	'''
