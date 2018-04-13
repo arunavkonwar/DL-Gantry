@@ -149,7 +149,6 @@ if __name__ == "__main__":
 	model.save_weights('/local/akonwar/trained_weights/trained_model_weights_resnet1-20.h5')
 	#model.save('trained_model.h5')
 	
-	'''
 
 	#update
 	'''
