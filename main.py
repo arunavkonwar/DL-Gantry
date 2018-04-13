@@ -76,7 +76,7 @@ if __name__ == "__main__":
 	#h5f = h5py.File('images_in_h5_format_8k.h5','r')
 	
 	#for 40k images dataset
-	h5f = h5py.File('images_in_h5_format.h5','r')
+	h5f = h5py.File('images_in_h5_format_40k.h5','r')
 	x_data_train = h5f['dataset_1'][:]
 	
 	h5f = h5py.File('validation_images_8k.h5','r')
