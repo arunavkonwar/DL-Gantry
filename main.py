@@ -142,10 +142,10 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_sgd_valid_1-100.png')
+	plt.savefig('visualization_sgd_valid_40k_1-80.png')
 
 
-	model.save_weights('trained_model_sgd_valid_1-100.h5')
+	model.save_weights('trained_model_sgd_valid_40k_1-80.h5')
 	#model.save('trained_model.h5')
 	
 	
