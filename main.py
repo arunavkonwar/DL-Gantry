@@ -63,14 +63,22 @@ if __name__ == "__main__":
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
 	#model.load_weights('trained_model_weights_dense_trainable_sgd_pose.h5')
-
-	y_filename ='./data/data_8k.txt'
+	
+	#for 8k images dataset
+	#y_filename ='./data/data_8k.txt'
+	
+	#for 40k images dataset
+	y_filename ='./data/data.txt'
 	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1])
 	y_data_train = y_data[:]
 
 	#########################################
-
-	h5f = h5py.File('images_in_h5_format_8k.h5','r')
+	
+	#for 8k images dataset
+	#h5f = h5py.File('images_in_h5_format_8k.h5','r')
+	
+	#for 40k images dataset
+	h5f = h5py.File('images_in_h5_format.h5','r')
 	x_data_train = h5f['dataset_1'][:]
 	
 	h5f = h5py.File('validation_images_8k.h5','r')
