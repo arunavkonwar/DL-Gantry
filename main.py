@@ -68,7 +68,7 @@ if __name__ == "__main__":
 	#y_filename ='./data/data_8k.txt'
 	
 	#for 40k images dataset
-	y_filename ='./data/data.txt'
+	y_filename ='./data/data_40k.txt'
 	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1])
 	y_data_train = y_data[:]
 
