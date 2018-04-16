@@ -11,7 +11,7 @@ def vgg16():
 	from keras.utils import plot_model 
 
 
-	vgg16_model = keras.applications.vgg16.VGG16()
+	vgg16_model = keras.applications.vgg16.VGG16(weights=None)
 
 	model = Sequential()
 	for layer in vgg16_model.layers:
@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
-	model.load_weights('/local/akonwar/trained_weights/full_train_1-20_after_sgd_valid_freeze1-20_8k_1-10.h5')
+	#model.load_weights('/local/akonwar/trained_weights/full_train_1-20_after_sgd_valid_freeze1-20_8k_1-10.h5')
 	
 	y_filename ='./data/data_8k.txt'
 	
@@ -148,10 +148,10 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_full_train_11-20_after_sgd_valid_freeze1-20_8k_1-10.png')
+	plt.savefig('visualization_noweights_8k_1-10.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/full_train_11-20_after_sgd_valid_freeze1-20_8k_1-10.h5')
+	model.save_weights('/local/akonwar/trained_weights/noweights_8k_1-108k_1-10.h5')
 	#model.save('trained_model.h5')
 	
 	
