@@ -63,7 +63,7 @@ if __name__ == "__main__":
 
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
-	model.load_weights('/local/akonwar/trained_weights/mobilenet_sgd_valid_40k_51-75.h5')
+	model.load_weights('/local/akonwar/trained_weights/mobilenet_sgd_valid_40k_76-100.h5')
 	
 	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_8k.txt'
 	
@@ -143,10 +143,10 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('/udd/akonwar/code/deep-learning-for-visual-servoing/visualization_mobilenet_sgd_valid_40k_76-100.png')
+	plt.savefig('/udd/akonwar/code/deep-learning-for-visual-servoing/visualization_mobilenet_sgd_valid_40k_101-125.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/mobilenet_sgd_valid_40k_76-100.h5')
+	model.save_weights('/local/akonwar/trained_weights/mobilenet_sgd_valid_40k_76-125.h5')
 	#model.save('trained_model.h5')
 	
 	
