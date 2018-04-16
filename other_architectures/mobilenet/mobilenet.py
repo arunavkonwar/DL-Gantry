@@ -76,7 +76,7 @@ if __name__ == "__main__":
 	#########################################
 	
 	#for 8k images dataset
-	h5f = h5py.File('/udd/akonwar/code/deep-learning-for-visual-servoing/images_in_h5_format_8k.h5','r')
+	h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k.h5','r')
 	
 	#for 40k images dataset
 	#h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_40k.h5','r')
