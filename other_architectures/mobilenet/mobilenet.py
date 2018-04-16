@@ -11,7 +11,7 @@ def vgg16():
 	from keras.utils import plot_model 
 
 
-	vgg16_model = keras.applications.vgg16.VGG16()
+	vgg16_model = keras.applications.mobilenet.MobileNet(input_shape=None, alpha=1.0, depth_multiplier=1, dropout=1e-3, include_top=True, weights='imagenet', input_tensor=None, pooling=None, classes=1000)
 
 	model = Sequential()
 	for layer in vgg16_model.layers:
@@ -27,7 +27,8 @@ def vgg16():
 		layer.trainable = True
 
 	#model.add(Dense(2, activation='linear'))
-	
+	print "length of network"
+	print len(model.layers)
 	model.summary()
 	return model
 
@@ -66,7 +67,9 @@ if __name__ == "__main__":
 	
 	#y_filename ='./data/data_8k.txt'
 	
-	y_filename ='./data/data_40k.txt'
+	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_40k.txt'
+	
+
 	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1])
 	y_data_train = y_data[:]
 
@@ -79,10 +82,10 @@ if __name__ == "__main__":
 	h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_40k.h5','r')
 	x_data_train = h5f['dataset_1'][:]
 	
-	h5f = h5py.File('validation_images_8k.h5','r')
+	h5f = h5py.File('/udd/akonwar/code/deep-learning-for-visual-servoing/validation_images_8k.h5','r')
 	x_data_valid = h5f['dataset_1'][:]
 	
-	y_filename ='./data/validation_data_8k.txt'
+	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/validation_data_8k.txt'
 	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1])
 	y_data_valid = y_data[:]
 
@@ -140,10 +143,10 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_sgd_valid_40k_1-60.png')
+	plt.savefig('/udd/akonwar/code/deep-learning-for-visual-servoing/visualization_mobilenet_sgd_valid_40k_1-50.png')
 
 
-	model.save_weights('trained_model_sgd_valid_40k_1-60.h5')
+	model.save_weights('/local/akonwar/trained_weights/mobilenet_sgd_valid_40k_1-50.h5')
 	#model.save('trained_model.h5')
 	
 	
