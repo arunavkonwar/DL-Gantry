@@ -29,8 +29,6 @@ def vgg16():
 	#model.add(Dense(2, activation='linear'))
 	
 	model.summary()
-	print "length of the network:"
-	print len(model.layers)
 	return model
 
 
