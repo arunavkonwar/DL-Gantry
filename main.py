@@ -22,11 +22,14 @@ def vgg16():
 	#model.layers.pop()
 
 	model.add(Dense(2, activation=None))
-	
+	'''
 	for layer in model.layers[:20]:
 		layer.trainable = False
 		
 	for layer in model.layers[21:23]:
+		layer.trainable = True
+	'''
+	for layer in model.layers:
 		layer.trainable = True
 
 	#model.add(Dense(2, activation='linear'))
@@ -65,7 +68,7 @@ if __name__ == "__main__":
 
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
-	#model.load_weights('trained_model_weights_dense_trainable_sgd_pose.h5')
+	model.load_weights('/local/akonwar/trained_weights/trained_model_sgd_valid_freeze1-20_8k_1-10.h5')
 	
 	y_filename ='./data/data_8k.txt'
 	
@@ -143,10 +146,10 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_sgd_valid_freeze1-20_8k_1-10.png')
+	plt.savefig('visualization_full_train_1-20_after_sgd_valid_freeze1-20_8k_1-10.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_sgd_valid_freeze1-20_8k_1-10.h5')
+	model.save_weights('/local/akonwar/trained_weights/full_train_1-20_after_sgd_valid_freeze1-20_8k_1-10.h5')
 	#model.save('trained_model.h5')
 	
 	
