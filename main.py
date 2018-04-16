@@ -61,7 +61,7 @@ if __name__ == "__main__":
 
 	np.random.seed(7) # for reproducibility
 
-	batch_size = 14
+	batch_size = 7
 
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
@@ -108,7 +108,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=20
+	iter=10
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -143,10 +143,10 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_sgd_valid_freeze1-20_8k_1-20.png')
+	plt.savefig('visualization_sgd_valid_freeze1-20_8k_1-10.png')
 
 
-	model.save_weights('trained_model_sgd_valid_freeze1-20_8k_1-20.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_sgd_valid_freeze1-20_8k_1-10.h5')
 	#model.save('trained_model.h5')
 	
 	
