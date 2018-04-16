@@ -22,21 +22,13 @@ def vgg16():
 	#model.layers.pop()
 
 	model.add(Dense(2, activation=None))
-	'''
-	for layer in model.layers[:20]:
-		layer.trainable = False
-		
-	for layer in model.layers[21:23]:
-		layer.trainable = True
-	'''
+	
 	for layer in model.layers:
 		layer.trainable = True
 
 	#model.add(Dense(2, activation='linear'))
 	
 	model.summary()
-	print "length of the network:"
-	print len(model.layers)
 	return model
 
 
@@ -66,25 +58,25 @@ if __name__ == "__main__":
 
 	np.random.seed(7) # for reproducibility
 
-	batch_size = 7
+	batch_size = 14
 
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
-	model.load_weights('/local/akonwar/trained_weights/full_train_1-20_after_sgd_valid_freeze1-20_8k_1-10.h5')
+	#model.load_weights('trained_model_weights_dense_trainable_sgd_pose.h5')
 	
-	y_filename ='./data/data_8k.txt'
+	#y_filename ='./data/data_8k.txt'
 	
-	#y_filename ='./data/data_40k.txt'
+	y_filename ='./data/data_40k.txt'
 	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1])
 	y_data_train = y_data[:]
 
 	#########################################
 	
 	#for 8k images dataset
-	h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k.h5','r')
+	#h5f = h5py.File('images_in_h5_format_8k.h5','r')
 	
 	#for 40k images dataset
-	#h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_40k.h5','r')
+	h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_40k.h5','r')
 	x_data_train = h5f['dataset_1'][:]
 	
 	h5f = h5py.File('validation_images_8k.h5','r')
@@ -113,7 +105,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=10
+	iter=50
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -148,10 +140,10 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_full_train_11-20_after_sgd_valid_freeze1-20_8k_1-10.png')
+	plt.savefig('visualization_sgd_valid_40k_1-60.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/full_train_11-20_after_sgd_valid_freeze1-20_8k_1-10.h5')
+	model.save_weights('trained_model_sgd_valid_40k_1-60.h5')
 	#model.save('trained_model.h5')
 	
 	
