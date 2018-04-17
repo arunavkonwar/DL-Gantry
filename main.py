@@ -128,7 +128,7 @@ if __name__ == "__main__":
 	end = time.time()
 	print ("Model took %0.2f seconds to train"%(end - start))
 	
-	print(history.history.keys()) 
+	#print(history.history.keys()) 
 
 	plt.figure(1)  
 
