@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
-	model.load_weights('/local/akonwar/trained_weights/trained_model_sgd_valid_40k_1-60.h5')
+	model.load_weights('/local/akonwar/trained_weights/trained_model_sgd_valid_40k_1-60_1-10.h5')
 	
 	y_filename ='./data/data_8k.txt'
 	
@@ -148,10 +148,10 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_sgd_valid_40k_1-60_1-10.png')
+	plt.savefig('visualization_sgd_valid_40k_1-60_11-40.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_sgd_valid_40k_1-60_1-10.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_sgd_valid_40k_1-60_11-40.h5')
 	#model.save('trained_model.h5')
 	
 	
