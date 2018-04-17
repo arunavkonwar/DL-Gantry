@@ -70,8 +70,7 @@ if __name__ == "__main__":
 
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
-	model.load_weights('/local/akonwar/trained_weights/trained_model_sgd_valid_40k_1-60
-.h5')
+	model.load_weights('/local/akonwar/trained_weights/trained_model_sgd_valid_40k_1-60.h5')
 	
 	y_filename ='./data/data_8k.txt'
 	
