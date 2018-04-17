@@ -66,7 +66,7 @@ if __name__ == "__main__":
 
 	np.random.seed(7) # for reproducibility
 
-	batch_size = 7
+	batch_size = 50
 
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
