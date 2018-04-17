@@ -11,7 +11,7 @@ def vgg16():
 	from keras.utils import plot_model 
 
 
-	vgg16_model = keras.applications.vgg16.VGG16(weights=None)
+	vgg16_model = keras.applications.vgg16.VGG16(include_top=True, weights='imagenet', input_tensor=None, input_shape=None, pooling=None, classes=1000)
 
 	model = Sequential()
 	for layer in vgg16_model.layers:
@@ -113,22 +113,24 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=20
+	iter=200
 	# Train:
 	print('Start training ...')
 	start = time.time()
-	'''
+
 	history = model.fit(x = x_data_train, y = y_data_train,
 		  epochs=iter,
 		  batch_size=batch_size, validation_data = ( x_data_valid, y_data_valid ), shuffle = True, verbose = 1)  
 		  #By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
-	'''
-	history = model.evaluate(x=x_data_train, y=y_data_train, batch_size=50, verbose=1, sample_weight=None, steps=None)
+	
+	#history = model.evaluate(x=x_data_train, y=y_data_train, batch_size=50, verbose=1, sample_weight=None, steps=None)
 	
 	end = time.time()
 	print ("Model took %0.2f seconds to train"%(end - start))
 	
-	#print(history.history.keys()) 
+	print(history.history.keys()) 
+	#for test mode
+	'''
 	print('Test loss:', history[0])
 	print('Test accuracy:', history[1])
 	'''
@@ -154,17 +156,10 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_quentin_test.png')
+	plt.savefig('visualization_quentin_values_1-200.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_quentin_test.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_quentin_values_1-200.h5')
 	#model.save('trained_model.h5')
 	
-	'''
 
-	#update
-	'''
-	loss_history = history
-	numpy_loss_history = np.array(loss_history)
-	np.savetxt("history.txt", numpy_loss_history, delimiter=",")
-	'''
