@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
-	model.load_weights('/local/akonwar/trained_weights/trained_model_sgd_valid_40k_1-60_46-65.h5')
+	#model.load_weights('/local/akonwar/trained_weights/trained_model_sgd_valid_40k_1-60_46-65.h5')
 	
 	y_filename ='./data/data_8k.txt'
 	
@@ -81,13 +81,13 @@ if __name__ == "__main__":
 	#########################################
 	
 	#for 8k images dataset
-	h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k.h5','r')
+	h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k_uint8.h5','r')
 	
 	#for 40k images dataset
 	#h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_40k.h5','r')
 	x_data_train = h5f['dataset_1'][:]
 	
-	h5f = h5py.File('validation_images_8k.h5','r')
+	h5f = h5py.File('/local/akonwar/image_data/validation_images_8k_uint8.h5','r')
 	x_data_valid = h5f['dataset_1'][:]
 	
 	y_filename ='./data/validation_data_8k.txt'
@@ -101,7 +101,7 @@ if __name__ == "__main__":
 	print('Preparing training ...')
 	#adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
 
-	sgd = SGD(lr=0.00001, momentum=0.9, decay=0.00138, nesterov=False)	
+	sgd = SGD(lr=0.0001, momentum=0.9, decay=5e-4, nesterov=False)	
 	#adam = Adam(lr=0.01, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
 	#model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
 	model.compile(optimizer=sgd, loss='mean_squared_error', metrics=['accuracy'])
