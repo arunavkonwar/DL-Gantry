@@ -129,7 +129,9 @@ if __name__ == "__main__":
 	print ("Model took %0.2f seconds to train"%(end - start))
 	
 	#print(history.history.keys()) 
-
+	print('Test loss:', history[0])
+	print('Test accuracy:', history[1])
+	'''
 	plt.figure(1)  
 
 	# summarize history for accuracy  
@@ -158,7 +160,7 @@ if __name__ == "__main__":
 	model.save_weights('/local/akonwar/trained_weights/trained_model_quentin_test.h5')
 	#model.save('trained_model.h5')
 	
-	
+	'''
 
 	#update
 	'''
