@@ -152,10 +152,10 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_vgg_quentin_values_1-20.png')
+	plt.savefig('visualization_quentin_test.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_vgg_quentin_values_1-20.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_quentin_test.h5')
 	#model.save('trained_model.h5')
 	
 	
