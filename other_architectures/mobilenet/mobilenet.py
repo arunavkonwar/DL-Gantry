@@ -77,14 +77,14 @@ if __name__ == "__main__":
 	
 	#for 8k images dataset
 	#h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k.h5','r')
-	h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k_1.h5', 'r')
+	h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k_uint8.h5', 'r')
 	
 	#for 40k images dataset
 	#h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_40k.h5','r')
 	x_data_train = h5f['dataset_1'][:]
 	
 	#h5f = h5py.File('/udd/akonwar/code/deep-learning-for-visual-servoing/validation_images_8k.h5','r')
-	h5f = h5py.File('/local/akonwar/image_data/validation_images_8k.h5','r')
+	h5f = h5py.File('/local/akonwar/image_data/validation_images_8k_uint8.h5','r')
 	x_data_valid = h5f['dataset_1'][:]
 	
 	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/validation_data_8k.txt'
@@ -145,10 +145,10 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('/udd/akonwar/code/deep-learning-for-visual-servoing/visualization_mobilenet_new_img_8k_1-50.png')
+	plt.savefig('/udd/akonwar/code/deep-learning-for-visual-servoing/visualization_mobilenet_new_img_8k_uint8_1-50.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/mobilenet_new_img_8k_1-50.h5')
+	model.save_weights('/local/akonwar/trained_weights/mobilenet_new_img_8k_uint8_1-50.h5')
 	#model.save('trained_model.h5')
 	
 	
