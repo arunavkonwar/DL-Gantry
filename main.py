@@ -9,30 +9,34 @@ def vgg16():
 	from keras.layers.convolutional import *
 	import matplotlib.pyplot as plt
 	from keras.utils import plot_model 
+	from keras.applications import VGG16
+	from keras import models
+	from keras import layers
 
 
-	vgg16_model = keras.applications.vgg16.VGG16(include_top=True, weights='imagenet', input_tensor=None, input_shape=None, pooling=None, classes=1000)
+	#vgg16_model = keras.applications.vgg16.VGG16(include_top=True, weights='imagenet', input_tensor=None, input_shape=None, pooling=None, classes=1000)
+	conv_base = VGG16(weights='imagenet',
+                  include_top=False,
+                  input_shape=(224, 224, 3))
 
-	model = Sequential()
-	for layer in vgg16_model.layers:
-		model.add(layer)
+	model = models.Sequential()
+	model.add(conv_base)
+	model.add(layers.Flatten())
+	model.add(layers.Dense(256, activation='linear'))
+	model.add(layers.Dense(2, activation='linear'))
 	
-	model.layers.pop()
-	#model.layers.pop()
-	#model.layers.pop()
 
-	model.add(Dense(2, activation=None))
-	'''
-	for layer in model.layers[:20]:
-		layer.trainable = False
-		
-	for layer in model.layers[21:23]:
-		layer.trainable = True
-	'''
-	for layer in model.layers:
-		layer.trainable = True
+	conv_base.trainable = True
 
-	#model.add(Dense(2, activation='linear'))
+	set_trainable = False
+	for layer in conv_base.layers:
+		if layer.name == 'block5_conv1':
+			set_trainable = True
+		if set_trainable:
+			layer.trainable = True
+		else:
+			layer.trainable = False
+	
 	
 	model.summary()
 	print "length of the network:"
@@ -101,7 +105,7 @@ if __name__ == "__main__":
 	print('Preparing training ...')
 	#adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
 
-	sgd = SGD(lr=0.01, momentum=0.9, decay=5e-4, nesterov=True)	
+	sgd = SGD(lr=1e-5, momentum=0.9, decay=0.00139, nesterov=True)	
 	#adam = Adam(lr=0.01, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
 	#model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
 	model.compile(optimizer=sgd, loss='mean_squared_error', metrics=['accuracy'])
@@ -113,7 +117,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=30
+	iter=50
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -156,10 +160,10 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_quentin_values_1-30_nesterov_lr_point01.png')
+	plt.savefig('visualization_fchollet_tut_posenet_LR_1-50.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_quentin_values_1-30_nesterov_lr_point01.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_fchollet_tut_posenet_LR_1-50.h5')
 	#model.save('trained_model.h5')
 	
 
