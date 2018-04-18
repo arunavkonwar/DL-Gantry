@@ -116,7 +116,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=3
+	iter=300
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -159,10 +159,10 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_fchollet_TESTtut_noDense_sgd_posenet_LR_1-3.png')
+	plt.savefig('visualization_fchollet_noDense_sgd_1-300.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_fchollet_TESTtut_noDense_sgd_posenet_LR_1-3.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_fchollet_noDense_sgd_1-300.h5')
 	#model.save('trained_model.h5')
 	
 
