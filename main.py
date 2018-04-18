@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
-	model.load_weights('/local/akonwar/trained_weights/trained_model_vgg_quentin_values_1-20.h5')
+	#model.load_weights('/local/akonwar/trained_weights/trained_model_vgg_quentin_values_1-20.h5')
 	
 	y_filename ='./data/data_8k.txt'
 	
@@ -101,7 +101,7 @@ if __name__ == "__main__":
 	print('Preparing training ...')
 	#adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
 
-	sgd = SGD(lr=0.01, momentum=0.9, decay=5e-4, nesterov=True)	
+	sgd = SGD(lr=0.1, momentum=0.9, decay=5e-4, nesterov=True)	
 	#adam = Adam(lr=0.01, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
 	#model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
 	model.compile(optimizer=sgd, loss='mean_squared_error', metrics=['accuracy'])
@@ -113,7 +113,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=25
+	iter=20
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -156,10 +156,10 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_quentin_values_1-30_nesterov_lr_point01.png')
+	plt.savefig('visualization_quentin_values_1-20_nesterov_lr_point1.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_quentin_values_1-30_nesterov_lr_point01.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_quentin_values_1-20_nesterov_lr_point1.h5')
 	#model.save('trained_model.h5')
 	
 
