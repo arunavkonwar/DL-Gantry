@@ -22,7 +22,6 @@ def vgg16():
 	model = models.Sequential()
 	model.add(conv_base)
 	model.add(layers.Flatten())
-	model.add(layers.Dense(256, activation='linear'))
 	model.add(layers.Dense(2, activation='linear'))
 	
 
@@ -163,10 +162,10 @@ if __name__ == "__main__":
 	plt.title('Training and validation loss')
 	plt.legend()
 	#plt.show()
-	plt.savefig('visualization_fchollet_tut_posenet_LR_1-100.png')
+	plt.savefig('visualization_fchollet_tut_noDense_posenet_LR_1-50.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_fchollet_tut_posenet_LR_1-100.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_fchollet_tut_noDense_posenet_LR_1-50.h5')
 	#model.save('trained_model.h5')
 	
 
