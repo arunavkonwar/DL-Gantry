@@ -116,7 +116,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=50
+	iter=30
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -162,10 +162,10 @@ if __name__ == "__main__":
 	plt.title('Training and validation loss')
 	plt.legend()
 	#plt.show()
-	plt.savefig('visualization_fchollet_tut_noDense_adam_posenet_LR_1-50.png')
+	plt.savefig('visualization_fchollet_tut_noDense_adam_posenet_LR_1-30.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_fchollet_tut_noDense_adam_posenet_LR_1-50.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_fchollet_tut_noDense_adam_posenet_LR_1-30.h5')
 	#model.save('trained_model.h5')
 	
 
