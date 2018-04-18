@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
 	np.random.seed(7) # for reproducibility
 
-	batch_size = 50
+	batch_size = 14
 
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
@@ -116,7 +116,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=100
+	iter=50
 	# Train:
 	print('Start training ...')
 	start = time.time()
