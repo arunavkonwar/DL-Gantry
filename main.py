@@ -139,28 +139,25 @@ if __name__ == "__main__":
 	'''
 	plt.figure(1)  
 
-	# summarize history for accuracy 
-	acc = history.history['acc']
-	val_acc = history.history['val_acc']
-	loss = history.history['loss']
-	val_loss = history.history['val_loss']
-	
-	epochs = range(len(acc))
+	# summarize history for accuracy  
 
 	plt.subplot(211)  
-	plt.plot(epochs, acc, 'b', label='Training acc')
-	plt.plot(epochs, val_acc, 'b', label='Validation acc')
-	plt.title('Training and validation accuracy')
-	plt.legend()  
+	plt.plot(history.history['acc'])  
+	plt.plot(history.history['val_acc'])  
+	plt.title('model accuracy')  
+	plt.ylabel('accuracy')  
+	plt.xlabel('epoch')  
+	plt.legend(['train', 'validation'], loc='upper left')  
 
 	# summarize history for loss  
 
 	plt.subplot(212)  
-	
-	plt.plot(epochs, loss, 'b', label='Training loss')
-	plt.plot(epochs, val_loss, 'b', label='Validation loss')
-	plt.title('Training and validation loss')
-	plt.legend()
+	plt.plot(history.history['loss'])  
+	plt.plot(history.history['val_loss'])  
+	plt.title('model loss')  
+	plt.ylabel('loss')  
+	plt.xlabel('epoch')  
+	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
 	plt.savefig('visualization_fchollet_TESTtut_noDense_sgd_posenet_LR_1-3.png')
 
