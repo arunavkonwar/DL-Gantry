@@ -116,7 +116,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=30
+	iter=3
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -148,7 +148,7 @@ if __name__ == "__main__":
 	epochs = range(len(acc))
 
 	plt.subplot(211)  
-	plt.plot(epochs, acc, 'bo', label='Training acc')
+	plt.plot(epochs, acc, 'b', label='Training acc')
 	plt.plot(epochs, val_acc, 'b', label='Validation acc')
 	plt.title('Training and validation accuracy')
 	plt.legend()  
@@ -157,15 +157,15 @@ if __name__ == "__main__":
 
 	plt.subplot(212)  
 	
-	plt.plot(epochs, loss, 'bo', label='Training loss')
+	plt.plot(epochs, loss, 'b', label='Training loss')
 	plt.plot(epochs, val_loss, 'b', label='Validation loss')
 	plt.title('Training and validation loss')
 	plt.legend()
 	#plt.show()
-	plt.savefig('visualization_fchollet_tut_noDense_sgd_posenet_LR_1-30.png')
+	plt.savefig('visualization_fchollet_TESTtut_noDense_sgd_posenet_LR_1-3.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_fchollet_tut_noDense_sgd_posenet_LR_1-30.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_fchollet_TESTtut_noDense_sgd_posenet_LR_1-3.h5')
 	#model.save('trained_model.h5')
 	
 
