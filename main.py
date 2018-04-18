@@ -104,10 +104,10 @@ if __name__ == "__main__":
 	print('Preparing training ...')
 	#adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
 
-	sgd = SGD(lr=1e-5, momentum=0.9, decay=0.00139, nesterov=True)	
-	#adam = Adam(lr=0.01, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
-	#model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
-	model.compile(optimizer=sgd, loss='mean_squared_error', metrics=['accuracy'])
+	#sgd = SGD(lr=1e-4, momentum=0.9, decay=0.00139, nesterov=True)	
+	adam = Adam(lr=0.01, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
+	model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
+	#model.compile(optimizer=sgd, loss='mean_squared_error', metrics=['accuracy'])
 	
 	#update
 	'''
@@ -162,10 +162,10 @@ if __name__ == "__main__":
 	plt.title('Training and validation loss')
 	plt.legend()
 	#plt.show()
-	plt.savefig('visualization_fchollet_tut_noDense_posenet_LR_1-50.png')
+	plt.savefig('visualization_fchollet_tut_noDense_adam_posenet_LR_1-50.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_fchollet_tut_noDense_posenet_LR_1-50.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_fchollet_tut_noDense_adam_posenet_LR_1-50.h5')
 	#model.save('trained_model.h5')
 	
 
