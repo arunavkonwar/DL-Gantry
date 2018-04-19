@@ -82,9 +82,9 @@ if __name__ == "__main__":
 	model = vgg16()
 	#model.load_weights('/local/akonwar/trained_weights/trained_model_vgg_quentin_values_1-20.h5')
 	
-	y_filename ='./data/data_8k.txt'
+	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_8k.txt'
 	
-	#y_filename ='./data/data_40k.txt'
+	#y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_40k.txt'
 	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1])
 	y_data_train = y_data[:]
 
