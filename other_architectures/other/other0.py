@@ -74,7 +74,7 @@ if __name__ == "__main__":
 
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
-	#model.load_weights('/local/akonwar/trained_weights/trained_model_vgg_quentin_values_1-20.h5')
+	model.load_weights('/local/akonwar/trained_weights/trained_model_other0_1-20.h5')
 	
 	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_8k.txt'
 	
@@ -160,10 +160,10 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_other0_1-20.png')
+	plt.savefig('visualization_other0_21-40.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_other0_1-20.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_other0_21-40.h5')
 	#model.save('trained_model.h5')
 	
 
