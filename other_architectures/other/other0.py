@@ -17,23 +17,23 @@ def vgg16():
 	
 	model = models.Sequential()
 	model.add(ZeroPadding2D((1,1),input_shape=(224,224,3)))
-	model.add(Convolution2D(64, 3, 3, activation='relu'))
-	model.add(ZeroPadding2D((1,1)))
-	model.add(Convolution2D(64, 3, 3, activation='relu'))
+	model.add(Conv2D(64, 3, 3, activation='relu'))
+	model.add(Conv2D((1,1)))
+	model.add(Conv2D(64, 3, 3, activation='relu'))
 	model.add(MaxPooling2D((2,2), strides=(2,2)))
 
 	model.add(ZeroPadding2D((1,1)))
-	model.add(Convolution2D(128, 3, 3, activation='relu'))
+	model.add(Conv2D(128, 3, 3, activation='relu'))
 	model.add(ZeroPadding2D((1,1)))
-	model.add(Convolution2D(128, 3, 3, activation='relu'))
+	model.add(Conv2D(128, 3, 3, activation='relu'))
 	model.add(MaxPooling2D((2,2), strides=(2,2)))
 
 	model.add(ZeroPadding2D((1,1)))
-	model.add(Convolution2D(256, 3, 3, activation='relu'))
+	model.add(Conv2D(256, 3, 3, activation='relu'))
 	model.add(ZeroPadding2D((1,1)))
-	model.add(Convolution2D(256, 3, 3, activation='relu'))
+	model.add(Conv2D(256, 3, 3, activation='relu'))
 	model.add(ZeroPadding2D((1,1)))
-	model.add(Convolution2D(256, 3, 3, activation='relu'))
+	model.add(Conv2D(256, 3, 3, activation='relu'))
 	model.add(MaxPooling2D((2,2), strides=(2,2)))
 
 	model.add(Flatten())
@@ -100,7 +100,7 @@ if __name__ == "__main__":
 	h5f = h5py.File('/local/akonwar/image_data/validation_images_8k_uint8.h5','r')
 	x_data_valid = h5f['dataset_1'][:]
 	
-	y_filename ='./data/validation_data_8k.txt'
+	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/validation_data_8k.txt'
 	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1])
 	y_data_valid = y_data[:]
 
