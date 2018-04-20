@@ -1,3 +1,6 @@
+'''
+https://hackernoon.com/learning-keras-by-implementing-vgg16-from-scratch-d036733f2d5
+'''
 def vgg16():
 	import keras
 	from keras.models import Sequential
@@ -22,7 +25,9 @@ def vgg16():
 	model = models.Sequential()
 	model.add(conv_base)
 	model.add(layers.Flatten())
-	model.add(layers.Dense(2, activation='linear'))
+	model.add(layers.Dense(4096, activation='relu'))
+	model.add(layers.Dense(4096, activation='relu'))
+	model.add(layers.Dense(2, activation=None))
 	
 
 	conv_base.trainable = True
@@ -41,6 +46,7 @@ def vgg16():
 	print "length of the network:"
 	print len(model.layers)
 	return model
+	
 
 
 
@@ -61,9 +67,6 @@ if __name__ == "__main__":
 	from matplotlib import pyplot as plt
 	import h5py
 	from keras.utils import plot_model
-	#from keras.callbacks import ModelCheckpoint
-	#import utils
-	#import models
 	import time
 	from keras.callbacks import ModelCheckpoint
 
@@ -71,29 +74,27 @@ if __name__ == "__main__":
 
 	batch_size = 14
 
-	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
-	#model.load_weights('/local/akonwar/trained_weights/trained_model_vgg_quentin_values_1-20.h5')
+	#model.load_weights('/local/akonwar/trained_weights/trained_model_overfit.h5')
 	
-	y_filename ='./data/data_8k.txt'
+	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_8k.txt'
 	
-	#y_filename ='./data/data_40k.txt'
+	#y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_40k.txt'
 	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1])
 	y_data_train = y_data[:]
-
 	#########################################
 	
 	#for 8k images dataset
-	h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k_uint8.h5','r')
+	h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k.h5','r')
 	
 	#for 40k images dataset
 	#h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_40k.h5','r')
 	x_data_train = h5f['dataset_1'][:]
 	
-	h5f = h5py.File('/local/akonwar/image_data/validation_images_8k_uint8.h5','r')
+	h5f = h5py.File('/local/akonwar/image_data/validation_images_in_h5_format_8k.h5','r')
 	x_data_valid = h5f['dataset_1'][:]
 	
-	y_filename ='./data/validation_data_8k.txt'
+	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/validation_data_8k.txt'
 	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1])
 	y_data_valid = y_data[:]
 
@@ -116,14 +117,14 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=100
+	iter=50
 	# Train:
 	print('Start training ...')
 	start = time.time()
 
 	history = model.fit(x = x_data_train, y = y_data_train,
 		  epochs=iter,
-		  batch_size=batch_size, validation_data = ( x_data_valid, y_data_valid ), shuffle = False, verbose = 1)  
+		  batch_size=batch_size, validation_data = ( x_data_valid, y_data_valid ), shuffle = True, verbose = 1)  
 		  #By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
 	
 	#history = model.evaluate(x=x_data_train, y=y_data_train, batch_size=50, verbose=1, sample_weight=None, steps=None)
@@ -159,10 +160,9 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_fchollet_noDense_sgd_shuffle_false_1-100.png')
+	plt.savefig('visualization_overfit_main_finetune_full_vgg.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_fchollet_noDense_sgd_shuffle_false_1-100.h5')
-	#model.save('trained_model.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_overfit_finetune_full_vgg.h5')
 	
 
