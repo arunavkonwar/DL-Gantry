@@ -16,30 +16,34 @@ def vgg16():
 	from keras import models
 	from keras import layers
 
-	weights_path=None
+
+	#vgg16_model = keras.applications.vgg16.VGG16(include_top=True, weights='imagenet', input_tensor=None, input_shape=None, pooling=None, classes=1000)
+	conv_base = VGG16(weights='imagenet',
+                  include_top=False,
+                  input_shape=(224, 224, 3))
+
+	model = models.Sequential()
+	model.add(conv_base)
+	model.add(layers.Flatten())
+	model.add(layers.Dense(256, activation='relu'))
+	model.add(layers.Dense(2, activation=None))
 	
-	input_shape = (224, 224, 3)
 
-	model = Sequential([
-	    Conv2D(64, (3, 3), input_shape=input_shape, padding='same', activation='relu'),
-	    Conv2D(64, (3, 3), activation='relu', padding='same'),
-	    MaxPooling2D(pool_size=(2, 2), strides=(2, 2)),
-	    Conv2D(128, (3, 3), activation='relu', padding='same'),
-	    Conv2D(128, (3, 3), activation='relu', padding='same',),
-	    MaxPooling2D(pool_size=(2, 2), strides=(2, 2)),
-	    Conv2D(256, (3, 3), activation='relu', padding='same',),
-	    Conv2D(256, (3, 3), activation='relu', padding='same',),
-	    Conv2D(256, (3, 3), activation='relu', padding='same',),
-	    MaxPooling2D(pool_size=(2, 2), strides=(2, 2)),
-	    Flatten(),
-	    Dense(2, activation=None)
-	])
+	conv_base.trainable = True
 
+	set_trainable = False
+	for layer in conv_base.layers:
+		if layer.name == 'block5_conv1':
+			set_trainable = True
+		if set_trainable:
+			layer.trainable = True
+		else:
+			layer.trainable = False
+	
+	
 	model.summary()
-
-	if weights_path:
-		model.load_weights(weights_path)
-
+	print "length of the network:"
+	print len(model.layers)
 	return model
 	
 
@@ -170,9 +174,9 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_overfit_main5000.png')
+	plt.savefig('visualization_overfit_main_finetune.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_overfit5000.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_overfit_finetune.h5')
 	
 
