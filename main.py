@@ -16,8 +16,9 @@ def vgg16():
 	from keras import models
 	from keras import layers
 
-
+	
 	#vgg16_model = keras.applications.vgg16.VGG16(include_top=True, weights='imagenet', input_tensor=None, input_shape=None, pooling=None, classes=1000)
+	'''
 	conv_base = VGG16(weights='imagenet',
                   include_top=False,
                   input_shape=(224, 224, 3))
@@ -40,7 +41,19 @@ def vgg16():
 			layer.trainable = True
 		else:
 			layer.trainable = False
+	'''
+	vgg16_model = VGG16(weights='imagenet',
+                  include_top=True,
+                  input_shape=(224, 224, 3))
+	model = Sequential()
+	for layer in vgg16_model.layers:
+    		model.add(layer)
+		
+	model.layers.pop()
+	model.add(layers.Dense(2, activation=None))
 	
+	for layer in model.layers:
+    		layer.trainable = True
 	
 	model.summary()
 	print "length of the network:"
@@ -117,7 +130,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=50
+	iter=200
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -160,9 +173,9 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_works.png')
+	plt.savefig('visualization_works_full_vgg.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_works.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_works_full_vgg.h5')
 	
 
