@@ -175,9 +175,9 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_overfit_main_finetune.png')
+	plt.savefig('visualization_overfit_main_finetune_full_vgg.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_overfit_finetune.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_overfit_finetune_full_vgg.h5')
 	
 
