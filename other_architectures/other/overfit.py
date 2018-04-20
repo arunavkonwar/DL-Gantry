@@ -32,7 +32,7 @@ def vgg16():
 	    Conv2D(256, (3, 3), activation='relu', padding='same',),
 	    MaxPooling2D(pool_size=(2, 2), strides=(2, 2)),
 	    Flatten(),
-	    Dense(2, activation='linear')
+	    Dense(2, activation=None)
 	])
 
 	model.summary()
@@ -74,7 +74,7 @@ if __name__ == "__main__":
 
 	#model = load_model('vgg16_edit.h5')
 	model = vgg16()
-	#model.load_weights('/local/akonwar/trained_weights/trained_model_other0_1-20.h5')
+	#model.load_weights('/local/akonwar/trained_weights/trained_model_overfit.h5')
 	
 	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_8k.txt'
 	
@@ -127,7 +127,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=4000
+	iter=5000
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -170,10 +170,9 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_overfit_main.png')
+	plt.savefig('visualization_overfit_main5000.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_overfit.h5')
-	#model.save('trained_model.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_overfit5000.h5')
 	
 
