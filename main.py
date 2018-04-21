@@ -137,7 +137,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=500
+	iter=200
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -181,9 +181,9 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_works_full_vgg_april21_1-500.png')
+	plt.savefig('visualization_works_full_vgg_april21_1-200.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_works_full_vgg_april21_1-500.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_works_full_vgg_april21_1-200.h5')
 	
 
