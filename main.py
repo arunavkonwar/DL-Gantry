@@ -91,7 +91,7 @@ if __name__ == "__main__":
 	batch_size = 14
 
 	model = vgg16()
-	#model.load_weights('/local/akonwar/trained_weights/trained_model_overfit.h5')
+	model.load_weights('/local/akonwar/trained_weights/trained_model_works_full_vgg_april21.h5')
 	
 	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_8k.txt'
 	
@@ -137,22 +137,23 @@ if __name__ == "__main__":
 	# Train:
 	print('Start training ...')
 	start = time.time()
-
+	'''
 	history = model.fit(x = x_data_train, y = y_data_train,
 		  epochs=iter,
 		  batch_size=batch_size, validation_data = ( x_data_valid, y_data_valid ), shuffle = True, verbose = 1)  
 		  #By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
-	
-	#history = model.evaluate(x=x_data_train, y=y_data_train, batch_size=50, verbose=1, sample_weight=None, steps=None)
+	'''
+	score = model.evaluate(x=x_data_train, y=y_data_train, batch_size=50, verbose=1, sample_weight=None, steps=None)
 	
 	end = time.time()
 	print ("Model took %0.2f seconds to train"%(end - start))
 	
-	print(history.history.keys()) 
+	#print(history.history.keys()) 
 	#for test mode
-	'''
-	print('Test loss:', history[0])
-	print('Test accuracy:', history[1])
+	
+	print('Test loss:', score[0])
+	print('Test accuracy:', score[1])
+	
 	'''
 	plt.figure(1)  
 
@@ -176,9 +177,9 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_works_full_vgg_april21.png')
+	plt.savefig('visualization_works_full_vgg_april21_test.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_works_full_vgg_april21.h5')
-	
+	model.save_weights('/local/akonwar/trained_weights/trained_model_works_full_vgg_april21_test.h5')
+	'''
 
