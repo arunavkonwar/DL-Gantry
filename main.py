@@ -18,18 +18,13 @@ def vgg16():
 
 	
 	#vgg16_model = keras.applications.vgg16.VGG16(include_top=True, weights='imagenet', input_tensor=None, input_shape=None, pooling=None, classes=1000)
-	'''
+	
 	conv_base = VGG16(weights='imagenet',
                   include_top=False,
                   input_shape=(224, 224, 3))
 
 	model = models.Sequential()
 	model.add(conv_base)
-	model.add(layers.Flatten())
-	model.add(layers.Dense(4096, activation='relu'))
-	model.add(layers.Dense(4096, activation='relu'))
-	model.add(layers.Dense(2, activation=None))
-	
 
 	conv_base.trainable = True
 
@@ -41,6 +36,15 @@ def vgg16():
 			layer.trainable = True
 		else:
 			layer.trainable = False
+	
+	model.add(layers.Flatten())
+	model.add(layers.Dense(4096, activation='relu'))
+	layer.trainable = True
+	model.add(layers.Dense(4096, activation='relu'))
+	layer.trainable = True
+	model.add(layers.Dense(2, activation=None))
+	layer.trainable = True
+	
 	'''
 	vgg16_model = VGG16(weights='imagenet',
                   include_top=True,
@@ -54,7 +58,7 @@ def vgg16():
 	
 	for layer in model.layers:
     		layer.trainable = True
-	
+	'''
 	model.summary()
 	print "length of the network:"
 	print len(model.layers)
@@ -173,9 +177,9 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_works_full_vgg.png')
+	plt.savefig('visualization_works_full_vgg_april21.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_works_full_vgg.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_works_full_vgg_april21.h5')
 	
 
