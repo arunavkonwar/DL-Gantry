@@ -37,10 +37,9 @@ def vgg16():
 		else:
 			layer.trainable = False
 	
+	
 	model.add(layers.Flatten())
-	model.add(layers.Dense(4096, activation='relu'))
-	layer.trainable = True
-	model.add(layers.Dense(4096, activation='relu'))
+	model.add(layers.Dense(256, activation='relu'))
 	layer.trainable = True
 	model.add(layers.Dense(2, activation=None))
 	layer.trainable = True
