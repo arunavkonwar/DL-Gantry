@@ -39,7 +39,15 @@ def vgg16():
 	
 	
 	model.add(layers.Flatten())
+	'''
 	model.add(layers.Dense(256, activation='relu'))
+	layer.trainable = True
+	model.add(layers.Dense(2, activation=None))
+	layer.trainable = True
+	'''
+	model.add(layers.Dense(4096, activation='relu'))
+	layer.trainable = True
+	model.add(layers.Dense(4096, activation='relu'))
 	layer.trainable = True
 	model.add(layers.Dense(2, activation=None))
 	layer.trainable = True
@@ -133,31 +141,30 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=100
+	iter=500
 	# Train:
 	print('Start training ...')
 	start = time.time()
-	'''
+	
 	history = model.fit(x = x_data_train, y = y_data_train,
 		  epochs=iter,
 		  batch_size=batch_size, validation_data = ( x_data_valid, y_data_valid ), shuffle = True, verbose = 1)  
 		  #By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
-	'''
-	score = model.evaluate(x=x_data_train, y=y_data_train, batch_size=50, verbose=1, sample_weight=None, steps=None)
+	
+	#score = model.evaluate(x=x_data_train, y=y_data_train, batch_size=50, verbose=1, sample_weight=None, steps=None)
 	
 	end = time.time()
 	print ("Model took %0.2f seconds to train"%(end - start))
 	
-	#print(history.history.keys()) 
+	print(history.history.keys()) 
 	#for test mode
-	
+	'''
 	print('Test loss:', score[0])
 	print('Test accuracy:', score[1])
-	
 	'''
+	
+	# summarize history for accuracy 
 	plt.figure(1)  
-
-	# summarize history for accuracy  
 
 	plt.subplot(211)  
 	plt.plot(history.history['acc'])  
@@ -177,9 +184,9 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_works_full_vgg_april21_test.png')
+	plt.savefig('visualization_works_full_vgg_april21_1-500.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_works_full_vgg_april21_test.h5')
-	'''
+	model.save_weights('/local/akonwar/trained_weights/trained_model_works_full_vgg_april21_1-500.h5')
+	
 
