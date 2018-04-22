@@ -30,25 +30,9 @@ def vgg16():
 
 	set_trainable = False
 	for layer in conv_base.layers:
-		if layer.name == 'block5_conv1':
-			set_trainable = True
-		if set_trainable:
-			layer.trainable = True
-		else:
-			layer.trainable = False
-	
+		layer.trainable = True
 	
 	model.add(layers.Flatten())
-	'''
-	model.add(layers.Dense(256, activation='relu'))
-	layer.trainable = True
-	model.add(layers.Dense(2, activation=None))
-	layer.trainable = True
-	'''
-	model.add(layers.Dense(4096, activation='relu'))
-	layer.trainable = True
-	model.add(layers.Dense(4096, activation='relu'))
-	layer.trainable = True
 	model.add(layers.Dense(2, activation=None))
 	layer.trainable = True
 	
@@ -137,7 +121,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=20
+	iter=100
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -181,9 +165,9 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_works_full_vgg_april22_posenet_1-20.png')
+	plt.savefig('visualization_works_conv_base_trainable_1-100.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_works_full_vgg_april22_posenet_1-20.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_works_conv_base_trainable_1-100.h5')
 	
 
