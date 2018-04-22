@@ -125,7 +125,7 @@ if __name__ == "__main__":
 	# Configure the training process:
 	print('Preparing training ...')
 
-	sgd = SGD(lr=1e-5, momentum=0.9, decay=0.001, nesterov=False)	
+	sgd = SGD(lr=1e-5, momentum=0.9, decay=0.00139, nesterov=True)	
 	#adam = Adam(lr=0.01, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
 	#model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
 	model.compile(optimizer=sgd, loss='mean_squared_error', metrics=['accuracy'])
@@ -181,9 +181,9 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_works_full_vgg_april22_LR_e5_1-20.png')
+	plt.savefig('visualization_works_full_vgg_april22_posenet_1-20.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_works_full_vgg_april22_LR_e5_1-20.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_works_full_vgg_april22_posenet_1-20.h5')
 	
 
