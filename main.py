@@ -30,11 +30,21 @@ def vgg16():
 
 	set_trainable = False
 	for layer in conv_base.layers:
-		layer.trainable = True
+		if layer.name == 'block5_conv1':
+			set_trainable = True
+		if set_trainable:
+			layer.trainable = True
+		else:
+			layer.trainable = False
+	
 	
 	model.add(layers.Flatten())
-	model.add(layers.Dense(4096, activation='relu'))
+	'''
+	model.add(layers.Dense(256, activation='relu'))
 	layer.trainable = True
+	model.add(layers.Dense(2, activation=None))
+	layer.trainable = True
+	'''
 	model.add(layers.Dense(4096, activation='relu'))
 	layer.trainable = True
 	model.add(layers.Dense(2, activation=None))
@@ -169,9 +179,9 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_works_full_april23_1-50.png')
+	plt.savefig('visualization_works_onedenseless_april23_1-40.h5.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_works_full_april23_1-50.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_works_onedenseless_april23_1-40.h5')
 	
 
