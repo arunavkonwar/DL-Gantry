@@ -33,6 +33,10 @@ def vgg16():
 		layer.trainable = True
 	
 	model.add(layers.Flatten())
+	model.add(layers.Dense(4096, activation='relu'))
+	layer.trainable = True
+	model.add(layers.Dense(4096, activation='relu'))
+	layer.trainable = True
 	model.add(layers.Dense(2, activation=None))
 	layer.trainable = True
 	
@@ -121,7 +125,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=100
+	iter=50
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -165,9 +169,9 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_works_conv_base_trainable_1-100.png')
+	plt.savefig('visualization_works_full_april23_1-50.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_works_conv_base_trainable_1-100.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_works_full_april23_1-50.h5')
 	
 
