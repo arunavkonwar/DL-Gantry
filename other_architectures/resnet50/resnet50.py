@@ -1,3 +1,6 @@
+'''http://marubon-ds.blogspot.fr/2017/08/how-to-make-fine-tuning-model.html
+'''
+
 def vgg16():
 	import keras
 	from keras.models import Sequential
@@ -18,19 +21,17 @@ def vgg16():
 	model = models.Sequential()
 	model.add(resnet)
 	model.add(layers.Flatten())
-	#resnet.trainable = True
 	model.add(Dense(2, activation='linear'))
-
-	#model.layers.pop()
-	#model.layers.pop()
-	#model.layers.pop()
-	'''
-	#model.add(Dense(2, activation=None))
-	'''
-	for layer in model.layers:
-		layer.trainable = True
+	
+	
+	layer_num = len(resnet.layers)
+	for layer in resnet.layers[:int(layer_num * 0.90)]:
+        	layer.trainable = False
+        	
 	
 	model.summary()
+	resnet.summary()
+	print len(resnet.layers)
 	return model
 	
 
