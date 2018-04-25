@@ -25,13 +25,15 @@ def vgg16():
 	
 	
 	layer_num = len(resnet.layers)
-	for layer in resnet.layers[:int(layer_num * 0.90)]:
+	
+	for layer in resnet.layers[:int(layer_num * 0.95)]:
         	layer.trainable = False
         	
 	
 	model.summary()
 	resnet.summary()
 	print len(resnet.layers)
+	print(layer_num * 0.95)
 	return model
 	
 
@@ -100,7 +102,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=50
+	iter=80
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -144,7 +146,7 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_resnet50_full_1-200.png')
+	plt.savefig('visualization_resnet50_95_percent_1-80.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_full_1-200.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_95_percent_1-80.h5')
