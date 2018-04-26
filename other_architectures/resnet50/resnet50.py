@@ -95,7 +95,7 @@ if __name__ == "__main__":
 	print('Preparing training ...')
 
 	#sgd = SGD(lr=1e-5, momentum=0.9, decay=0.00139, nesterov=True)	
-	adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
+	adam = Adam(lr=0.00001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
 	model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
 	#model.compile(optimizer=sgd, loss='mean_squared_error', metrics=['accuracy'])
 	
@@ -150,7 +150,7 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_resnet50_90percent_1-50_adam_0001.png')
+	plt.savefig('visualization_resnet50_90percent_1-50_adam_00001.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_90percent_1-50_adam_0001.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_90percent_1-50_adam_00001.h5')
