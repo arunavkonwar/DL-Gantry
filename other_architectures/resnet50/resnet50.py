@@ -21,22 +21,23 @@ def vgg16():
 	model = models.Sequential()
 	model.add(resnet)
 	model.add(layers.Flatten())
-	model.add(Dense(2, activation='linear'))
+	model.add(Dense(2, activation=None))
 	
 	
 	layer_num = len(resnet.layers)
 	
-	for layer in resnet.layers[:int(layer_num * 1)]:
-        	layer.trainable = True
+	for layer in resnet.layers[:int(layer_num * 0.9)]:
+        	layer.trainable = False
 	model_num = len(model.layers)
-	for layer in model.layers[:int(model_num * 1)]:
+	'''
+	for layer in model.layers[int(model_num * 0.8):]:
         	layer.trainable = True
-        	
+        '''	
 	
 	model.summary()
 	resnet.summary()
 	print len(resnet.layers)
-	print(layer_num * 0.95)
+	print(layer_num * 0.8)
 	return model
 	
 
@@ -93,10 +94,10 @@ if __name__ == "__main__":
 	# Configure the training process:
 	print('Preparing training ...')
 
-	sgd = SGD(lr=1e-5, momentum=0.9, decay=0.00139, nesterov=True)	
-	#adam = Adam(lr=0.01, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
-	#model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
-	model.compile(optimizer=sgd, loss='mean_squared_error', metrics=['accuracy'])
+	#sgd = SGD(lr=1e-5, momentum=0.9, decay=0.00139, nesterov=True)	
+	adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
+	model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
+	#model.compile(optimizer=sgd, loss='mean_squared_error', metrics=['accuracy'])
 	
 	#update
 	'''
@@ -105,7 +106,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=300
+	iter=50
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -149,7 +150,7 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_resnet50_full_1-300.png')
+	plt.savefig('visualization_resnet50_90percent_1-50_adam_001.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_full_1-300.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_90percent_1-50_adam_001.h5')
