@@ -68,7 +68,7 @@ if __name__ == "__main__":
 	batch_size = 14
 
 	model = vgg16()
-	#model.load_weights('/local/akonwar/trained_weights/trained_model_works_full_vgg_april21.h5')
+	model.load_weights('/local/akonwar/trained_weights/trained_model_resnet50_90percent_1-50_adam_00001.h5')
 	
 	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_8k.txt'
 	
