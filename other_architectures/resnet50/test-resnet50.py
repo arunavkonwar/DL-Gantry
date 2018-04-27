@@ -95,7 +95,7 @@ if __name__ == "__main__":
 	print('Preparing training ...')
 
 	#sgd = SGD(lr=1e-5, momentum=0.9, decay=0.00139, nesterov=True)	
-	adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
+	adam = Adam(lr=0.00001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
 	model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
 	#model.compile(optimizer=sgd, loss='mean_squared_error', metrics=['accuracy'])
 	
@@ -109,21 +109,23 @@ if __name__ == "__main__":
 	iter=50
 	# Train:
 	print('Start training ...')
+	'''
 	start = time.time()
 	
 	history = model.fit(x = x_data_train, y = y_data_train,
 		  epochs=iter,
 		  batch_size=batch_size, validation_data = ( x_data_valid, y_data_valid ), shuffle = True, verbose = 1)  
 		  #By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
+	'''	  
 	#test mode
-	#score = model.evaluate(x=x_data_train, y=y_data_train, batch_size=50, verbose=1, sample_weight=None, steps=None)
+	score = model.evaluate(x=x_data_train, y=y_data_train, batch_size=50, verbose=1, sample_weight=None, steps=None)
 	
 	#for test mode
-	'''
+	
 	print('Test loss:', score[0])
 	print('Test accuracy:', score[1])
-	'''
 	
+	'''
 	end = time.time()
 	print ("Model took %0.2f seconds to train"%(end - start))
 	
@@ -150,7 +152,8 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_resnet50_90percent_1-50_adam_001.png')
+	plt.savefig('visualization_resnet50_90percent_1-50_adam_00001.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_90percent_1-50_adam_001.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_90percent_1-50_adam_00001.h5')
+	'''
