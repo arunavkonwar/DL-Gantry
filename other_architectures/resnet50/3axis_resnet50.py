@@ -106,7 +106,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=20
+	iter=100
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -150,7 +150,7 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_resnet50_90percent_1-20_3axis.png')
+	plt.savefig('visualization_resnet50_90percent_1-100_3axis.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_90percent_1-20_3axis.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_90percent_1-100_3axis.h5')
