@@ -77,11 +77,13 @@ if __name__ == "__main__":
 	#########################################
 	
 	#for 8k images dataset
-	h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k.h5','r')
+	#h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k.h5','r')
+	h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k_by255.h5','r')
 	
 	x_data_train = h5f['dataset_1'][:]
 	
-	h5f = h5py.File('/local/akonwar/image_data/validation_images_in_h5_format_8k.h5','r')
+	#h5f = h5py.File('/local/akonwar/image_data/validation_images_in_h5_format_8k.h5','r')
+	h5f = h5py.File('/local/akonwar/image_data/validation_images_in_h5_format_8k_by255.h5','r')
 	x_data_valid = h5f['dataset_1'][:]
 	
 	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/validation_data_8k.txt'
@@ -95,7 +97,7 @@ if __name__ == "__main__":
 	print('Preparing training ...')
 
 	#sgd = SGD(lr=1e-5, momentum=0.9, decay=0.00139, nesterov=True)	
-	adam = Adam(lr=0.00001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
+	adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
 	model.compile(optimizer=adam, loss='mean_squared_error', metrics=['accuracy'])
 	#model.compile(optimizer=sgd, loss='mean_squared_error', metrics=['accuracy'])
 	
@@ -106,7 +108,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=300
+	iter=50
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -150,7 +152,7 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_resnet50_90percent_1-300_adam_00001.png')
+	plt.savefig('visualization_resnet50_90percent_1-50_adam_0001_by255.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_90percent_1-300_adam_00001.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_90percent_1-50_adam_0001_by255.h5')
