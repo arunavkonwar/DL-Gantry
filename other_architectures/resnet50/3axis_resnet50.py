@@ -77,11 +77,13 @@ if __name__ == "__main__":
 	#########################################
 	
 	#for 8k images dataset
-	h5f = h5py.File('/local/akonwar/image_data/3axis_in_h5_format.h5','r')
+	#h5f = h5py.File('/local/akonwar/image_data/3axis_in_h5_format.h5','r')
+	h5f = h5py.File('/local/akonwar/image_data/3axis_in_h5_format_by255.h5','r')
 	
 	x_data_train = h5f['dataset_1'][:]
 	
-	h5f = h5py.File('/local/akonwar/image_data/validation_images_3axis.h5','r')
+	#h5f = h5py.File('/local/akonwar/image_data/validation_images_3axis.h5','r')
+	h5f = h5py.File('/local/akonwar/image_data/validation_images_3axis_by255.h5','r')
 	x_data_valid = h5f['dataset_1'][:]
 	
 	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/validation_data_3axis.txt'
@@ -106,7 +108,7 @@ if __name__ == "__main__":
 	callbacks_list = [checkpoint] 
 	'''
 
-	iter=100
+	iter=50
 	# Train:
 	print('Start training ...')
 	start = time.time()
@@ -150,7 +152,7 @@ if __name__ == "__main__":
 	plt.xlabel('epoch')  
 	plt.legend(['train', 'validation'], loc='upper left')  
 	#plt.show()
-	plt.savefig('visualization_resnet50_90percent_1-100_3axis.png')
+	plt.savefig('visualization_resnet50_90percent_1-50_eminus5_3axis_by255.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_90percent_1-100_3axis.h5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_90percent_1-50_eminus5_3axis_by255.h5')
