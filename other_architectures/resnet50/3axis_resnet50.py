@@ -1,6 +1,6 @@
 '''http://marubon-ds.blogspot.fr/2017/08/how-to-make-fine-tuning-model.html
 '''
-
+#test
 def vgg16():
 	import keras
 	from keras.models import Sequential
