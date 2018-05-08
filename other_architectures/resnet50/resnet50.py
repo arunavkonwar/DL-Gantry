@@ -156,4 +156,4 @@ if __name__ == "__main__":
 	plt.savefig('visualization_resnet50_90percent_1-300_adam_0001_3axis.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_90percent_1-300_adam_0001_3axish5')
+	model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_90percent_1-300_adam_0001_3axis.h5')
