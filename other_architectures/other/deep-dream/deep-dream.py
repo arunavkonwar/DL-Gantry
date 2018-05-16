@@ -142,7 +142,7 @@ iterations = 20  # Number of ascent steps per scale
 max_loss = 10.
 
 # Fill this to the path to the image you want to use
-base_image_path = '/home/ubuntu/data/original_photo_deep_dream.jpg'
+base_image_path = '/udd/akonwar/code/deep-learning-for-visual-servoing/other_architectures/other/deep-dream/avatar.png'
 
 # Load the image into a Numpy array
 img = preprocess_image(base_image_path)
