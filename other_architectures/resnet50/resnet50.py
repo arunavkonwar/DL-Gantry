@@ -24,8 +24,8 @@ def vgg16():
 	#for 2 axis
 	#model.add(Dense(2, activation=None))
 	#for 3 axis
-	#model.add(Dense(3, activation=None))
-	model.add(Dense(4, activation=None))
+	model.add(Dense(3, activation=None))
+	#model.add(Dense(4, activation=None))
 	
 	
 	layer_num = len(resnet.layers)
