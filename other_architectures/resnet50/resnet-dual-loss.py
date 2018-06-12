@@ -340,7 +340,7 @@ if __name__ == '__main__':
 
     #sgd = SGD(lr=1e-5, momentum=0.9, decay=0.00139, nesterov=True) 
     adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
-    model.compile(optimizer=adam, loss={'mean_squared_error', 'mean_squared_error'})
+    model.compile(optimizer=adam, loss='mean_squared_error')
     #model.compile(optimizer=sgd, loss='mean_squared_error', metrics=['accuracy'])
     
     #update
@@ -397,4 +397,4 @@ if __name__ == '__main__':
     plt.savefig('viz_resnet50_90percent_1-150_adam_0001_velocity_hd.png')
 
 
-    model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_90percent_1-150_adam_0001_velocity_hd.h5')
+    model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_dual-loss_4DOF.h5')
