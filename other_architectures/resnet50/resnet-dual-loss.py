@@ -235,8 +235,8 @@ def ResNet50(include_top=False, weights='imagenet',
     else:
         inputs = img_input
     # Create model.
-    model = Model(inputs, x, name='resnet50')
-
+    #model = Model(inputs, x, name='resnet50')
+    '''
     # load weights
     if weights == 'imagenet':
         if include_top:
@@ -269,18 +269,20 @@ def ResNet50(include_top=False, weights='imagenet',
                               '`image_data_format="channels_last"` in '
                               'your Keras config '
                               'at ~/.keras/keras.json.')
-    
-    inputs = Input(shape=(1,1,1,2048)) # 7 steps ahead and 6 variables
-    x = Flatten()(inputs)
+    '''
+    #inputs = Input(shape=(1,1,1,2048)) # 7 steps ahead and 6 variables
+    x = Flatten()(x)
     out1 = Dense(3, activation=None, name='translation')(x)
     out2 = Dense(1, activation=None, name='rotation')(x)
     #model = Model(x, [out1, out2])
-    model2 = Model(inputs=[inputs], outputs=[out1, out2])
+    #model2 = Model(inputs=[inputs], outputs=[out1, out2])
+
+    model = Model(inputs=[img_input], outputs=[out1, out2], name='resnet50')
 
     #y = model2(model(img_input))
     #y = Model(inputs=[img_input], outputs=[out1, out2])
-    y = Model(inputs=model.input, outputs=model2(model.output), name='lol')
-    return y
+    #y = Model(inputs=model.input, outputs=model2(model.output), name='lol')
+    return model
 
 
 if __name__ == '__main__':
@@ -314,6 +316,32 @@ if __name__ == '__main__':
     plot_model(model, to_file='multiple_inputs.png')
 
 
+    #loss definition 
+    def euc_loss1x(y_true, y_pred):
+        lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+        return (0.3 * lx)
+
+    def euc_loss1q(y_true, y_pred):
+        lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+        return (150 * lq)
+
+    def euc_loss2x(y_true, y_pred):
+        lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+        return (0.3 * lx)
+
+    def euc_loss2q(y_true, y_pred):
+        lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+        return (150 * lq)
+
+    def euc_loss3x(y_true, y_pred):
+        lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+        return (1 * lx)
+
+    def euc_loss3q(y_true, y_pred):
+        lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+        return (500 * lq)
+
+    
 
     y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_4DOF.txt'
     
@@ -344,33 +372,26 @@ if __name__ == '__main__':
 
     #sgd = SGD(lr=1e-5, momentum=0.9, decay=0.00139, nesterov=True) 
     adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
-    model.compile(optimizer=adam, loss='mean_squared_error')
+    model.compile(optimizer=adam, loss= {'translation': euc_loss1x, 'rotation': euc_loss3q})
     #model.compile(optimizer=sgd, loss='mean_squared_error', metrics=['accuracy'])
     
     #update
-    '''
-    filepath="best_model.hdf5"  
-    checkpoint = ModelCheckpoint(filepath, monitor='val_loss', verbose=1, save_best_only=True, mode='max')
-    callbacks_list = [checkpoint] 
-    '''
 
-    iter=150
+
+    iter=100
     # Train:
     print('Start training ...')
     start = time.time()
     
-    history = model.fit(x = np.array(x_data_train), y = np.array(y_data_train),
+    history = model.fit(x = x_data_train, y = y_data_train,
           epochs=iter,
-          batch_size=batch_size, validation_data = ( np.array(x_data_valid), np.array(y_data_valid) ), shuffle = True, verbose = 1)  
+          batch_size=batch_size, validation_data = ( x_data_valid, y_data_valid ), shuffle = True, verbose = 1)  
           #By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
     #test mode
     #score = model.evaluate(x=x_data_train, y=y_data_train, batch_size=50, verbose=1, sample_weight=None, steps=None)
     
     #for test mode
-    '''
-    print('Test loss:', score[0])
-    print('Test accuracy:', score[1])
-    '''
+
     
     end = time.time()
     print ("Model took %0.2f seconds to train"%(end - start))
@@ -398,7 +419,8 @@ if __name__ == '__main__':
     plt.xlabel('epoch')  
     plt.legend(['train', 'validation'], loc='upper left')  
     #plt.show()
-    plt.savefig('viz_resnet50_90percent_1-150_adam_0001_velocity_hd.png')
+    plt.savefig('viz_resnet50_dual-loss_4DOF.png')
 
 
     model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_dual-loss_4DOF.h5')
+    
