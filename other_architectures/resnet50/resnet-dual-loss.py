@@ -303,6 +303,10 @@ if __name__ == '__main__':
     from keras.callbacks import ModelCheckpoint
 
     from keras.utils import plot_model
+    
+    np.random.seed(7) # for reproducibility
+
+	batch_size = 14
 
     model = ResNet50(include_top=False, weights='imagenet') 
     print(model.summary())
