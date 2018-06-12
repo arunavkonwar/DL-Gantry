@@ -359,9 +359,9 @@ if __name__ == '__main__':
     print('Start training ...')
     start = time.time()
     
-    history = model.fit(x = x_data_train, y = y_data_train,
+    history = model.fit(x = np.array(x_data_train), y = np.array(y_data_train),
           epochs=iter,
-          batch_size=batch_size, validation_data = ( x_data_valid, y_data_valid ), shuffle = True, verbose = 1)  
+          batch_size=batch_size, validation_data = ( np.array(x_data_valid), np.array(y_data_valid) ), shuffle = True, verbose = 1)  
           #By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
     #test mode
     #score = model.evaluate(x=x_data_train, y=y_data_train, batch_size=50, verbose=1, sample_weight=None, steps=None)
