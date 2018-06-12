@@ -306,7 +306,7 @@ if __name__ == '__main__':
     
     np.random.seed(7) # for reproducibility
 
-	batch_size = 14
+    batch_size = 14
 
     model = ResNet50(include_top=False, weights='imagenet') 
     print(model.summary())
