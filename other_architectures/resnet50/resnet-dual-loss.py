@@ -277,7 +277,9 @@ def ResNet50(include_top=False, weights='imagenet',
     #model = Model(x, [out1, out2])
     #model2 = Model(inputs=[inputs], outputs=[out1, out2])
 
-    model = Model(inputs=[img_input], outputs=[out1, out2], name='resnet50')
+    #model = Model(inputs=[img_input], outputs=[out1, out2], name='resnet50')
+
+    model = Model(inputs=[img_input], outputs=[out1], name='resnet50')
 
     #y = model2(model(img_input))
     #y = Model(inputs=[img_input], outputs=[out1, out2])
@@ -343,25 +345,25 @@ if __name__ == '__main__':
 
     
 
-    y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_4DOF.txt'
+    y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_velocity_hd.txt'
     
-    y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1,2,5])
+    y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1,2])
     y_data_train = y_data[:]
     #########################################
     
     #for 8k images dataset
     #h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k.h5','r')
     #h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k_by255.h5','r')
-    h5f = h5py.File('/local/akonwar/image_data/4DOF.h5','r')
+    h5f = h5py.File('/local/akonwar/image_data/velocity_hd.h5','r')
     
     x_data_train = h5f['dataset_1'][:]
     
     #h5f = h5py.File('/local/akonwar/image_data/validation_images_in_h5_format_8k.h5','r')
-    h5f = h5py.File('/local/akonwar/image_data/4DOF.h5','r')
+    h5f = h5py.File('/local/akonwar/image_data/velocity_hd.h5','r')
     x_data_valid = h5f['dataset_1'][:]
     
-    y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_4DOF.txt'
-    y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1,2,5])
+    y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_velocity_hd.txt'
+    y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1,2])
     y_data_valid = y_data[:]
 
 
@@ -372,7 +374,8 @@ if __name__ == '__main__':
 
     #sgd = SGD(lr=1e-5, momentum=0.9, decay=0.00139, nesterov=True) 
     adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
-    model.compile(optimizer=adam, loss= {'translation': euc_loss1x, 'rotation': euc_loss3q})
+    #model.compile(optimizer=adam, loss= {'translation': euc_loss1x, 'rotation': euc_loss3q})
+    model.compile(optimizer=adam, loss= euc_loss1x)
     #model.compile(optimizer=sgd, loss='mean_squared_error', metrics=['accuracy'])
     
     #update
@@ -383,9 +386,9 @@ if __name__ == '__main__':
     print('Start training ...')
     start = time.time()
     
-    history = model.fit(x = x_data_train, y = y_data_train,
+    history = model.fit(x = np.array(x_data_train), y = np.array(y_data_train),
           epochs=iter,
-          batch_size=batch_size, validation_data = ( x_data_valid, y_data_valid ), shuffle = True, verbose = 1)  
+          batch_size=batch_size, validation_data = ( np.array(x_data_valid), np.array(y_data_valid) ), shuffle = True, verbose = 1)  
           #By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
     #test mode
     #score = model.evaluate(x=x_data_train, y=y_data_train, batch_size=50, verbose=1, sample_weight=None, steps=None)
