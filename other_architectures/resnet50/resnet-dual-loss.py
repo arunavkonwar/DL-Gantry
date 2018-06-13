@@ -347,7 +347,7 @@ if __name__ == '__main__':
 
     y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_4DOF_new.txt'
     
-    y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1,2])
+    y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1,2,5])
     y_data_train = y_data[:]
     #########################################
     
@@ -363,7 +363,7 @@ if __name__ == '__main__':
     x_data_valid = h5f['dataset_1'][:]
     
     y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_4DOF_new.txt'
-    y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1,2])
+    y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1,2,5])
     y_data_valid = y_data[:]
 
 
