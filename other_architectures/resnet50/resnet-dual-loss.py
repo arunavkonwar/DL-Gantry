@@ -354,12 +354,12 @@ if __name__ == '__main__':
     #for 8k images dataset
     #h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k.h5','r')
     #h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k_by255.h5','r')
-    h5f = h5py.File('/local/akonwar/image_data/4DOF_new.h5.h5','r')
+    h5f = h5py.File('/local/akonwar/image_data/4DOF_new.h5','r')
     
     x_data_train = h5f['dataset_1'][:]
     
     #h5f = h5py.File('/local/akonwar/image_data/validation_images_in_h5_format_8k.h5','r')
-    h5f = h5py.File('/local/akonwar/image_data/4DOF_new.h5.h5','r')
+    h5f = h5py.File('/local/akonwar/image_data/4DOF_new.h5','r')
     x_data_valid = h5f['dataset_1'][:]
     
     y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_4DOF_new.txt'
