@@ -375,7 +375,7 @@ if __name__ == '__main__':
     #sgd = SGD(lr=1e-5, momentum=0.9, decay=0.00139, nesterov=True) 
     adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
     #model.compile(optimizer=adam, loss= {'translation': euc_loss1x, 'rotation': euc_loss3q})
-    model.compile(optimizer=adam, loss= euc_loss1x)
+    model.compile(optimizer=adam, loss= euc_loss1x, metrics=['accuracy'])
     #model.compile(optimizer=sgd, loss='mean_squared_error', metrics=['accuracy'])
     
     #update
