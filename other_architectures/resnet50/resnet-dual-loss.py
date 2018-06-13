@@ -381,7 +381,7 @@ if __name__ == '__main__':
     #update
 
 
-    iter=3
+    iter=100
     # Train:
     print('Start training ...')
     start = time.time()
