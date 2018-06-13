@@ -345,7 +345,7 @@ if __name__ == '__main__':
 
     
 
-    y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_velocity_hd.txt'
+    y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_4DOF_new.txt'
     
     y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1,2])
     y_data_train = y_data[:]
@@ -354,15 +354,15 @@ if __name__ == '__main__':
     #for 8k images dataset
     #h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k.h5','r')
     #h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k_by255.h5','r')
-    h5f = h5py.File('/local/akonwar/image_data/velocity_hd.h5','r')
+    h5f = h5py.File('/local/akonwar/image_data/4DOF_new.h5.h5','r')
     
     x_data_train = h5f['dataset_1'][:]
     
     #h5f = h5py.File('/local/akonwar/image_data/validation_images_in_h5_format_8k.h5','r')
-    h5f = h5py.File('/local/akonwar/image_data/velocity_hd.h5','r')
+    h5f = h5py.File('/local/akonwar/image_data/4DOF_new.h5.h5','r')
     x_data_valid = h5f['dataset_1'][:]
     
-    y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_velocity_hd.txt'
+    y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_4DOF_new.txt'
     y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1,2])
     y_data_valid = y_data[:]
 
@@ -381,7 +381,7 @@ if __name__ == '__main__':
     #update
 
 
-    iter=100
+    iter=3
     # Train:
     print('Start training ...')
     start = time.time()
@@ -422,8 +422,8 @@ if __name__ == '__main__':
     plt.xlabel('epoch')  
     plt.legend(['train', 'validation'], loc='upper left')  
     #plt.show()
-    plt.savefig('viz_resnet50_dual-loss_4DOF.png')
+    plt.savefig('viz_resnet50_dual-loss_4DOF-new.png')
 
 
-    model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_dual-loss_4DOF.h5')
+    model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_dual-loss_4DOF-new.h5')
     
