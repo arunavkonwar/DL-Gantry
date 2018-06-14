@@ -345,25 +345,25 @@ if __name__ == '__main__':
 
     
 
-    y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_velocity_hd.txt'
+    y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_4DOF_new.txt'
     
-    y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1,2])
+    y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[5])
     y_data_train = y_data[:]
     #########################################
     
     #for 8k images dataset
     #h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k.h5','r')
     #h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k_by255.h5','r')
-    h5f = h5py.File('/local/akonwar/image_data/velocity_hd.h5','r')
+    h5f = h5py.File('/local/akonwar/image_data/4DOF_new.h5','r')
     
     x_data_train = h5f['dataset_1'][:]
     
     #h5f = h5py.File('/local/akonwar/image_data/validation_images_in_h5_format_8k.h5','r')
-    h5f = h5py.File('/local/akonwar/image_data/velocity_hd.h5','r')
+    h5f = h5py.File('/local/akonwar/image_data/4DOF_new.h5','r')
     x_data_valid = h5f['dataset_1'][:]
     
-    y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_velocity_hd.txt'
-    y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1,2])
+    y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_4DOF_new.txt'
+    y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[5])
     y_data_valid = y_data[:]
 
 
@@ -375,13 +375,13 @@ if __name__ == '__main__':
     #sgd = SGD(lr=1e-5, momentum=0.9, decay=0.00139, nesterov=True) 
     adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
     #model.compile(optimizer=adam, loss= {'translation': euc_loss1x, 'rotation': euc_loss3q}, metrics=['accuracy'])
-    model.compile(optimizer=adam, loss= euc_loss1x, metrics=['accuracy'])
+    model.compile(optimizer=adam, loss= euc_loss3q, metrics=['accuracy'])
     #model.compile(optimizer=sgd, loss='mean_squared_error', metrics=['accuracy'])
     
     #update
 
 
-    iter=100
+    iter=50
     # Train:
     print('Start training ...')
     start = time.time()
@@ -422,8 +422,8 @@ if __name__ == '__main__':
     plt.xlabel('epoch')  
     plt.legend(['train', 'validation'], loc='upper left')  
     #plt.show()
-    plt.savefig('viz_resnet50_dual-loss_velocityhd_1-100.png')
+    plt.savefig('viz_resnet50_dual-loss_4DOF_3q_1-50.png')
 
 
-    model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_dual-loss_velocityhd_1-100.h5')
+    model.save_weights('/local/akonwar/trained_weights/trained_model_resnet50_dual-loss_4DOF_3q_1-50.h5')
     
