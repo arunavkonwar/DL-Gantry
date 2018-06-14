@@ -279,7 +279,7 @@ def ResNet50(include_top=False, weights='imagenet',
 
     #model = Model(inputs=[img_input], outputs=[out1, out2], name='resnet50')
 
-    model = Model(inputs=[img_input], outputs=[out1], name='resnet50')
+    model = Model(inputs=[img_input], outputs=[out2], name='resnet50')
 
     #y = model2(model(img_input))
     #y = Model(inputs=[img_input], outputs=[out1, out2])
