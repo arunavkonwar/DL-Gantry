@@ -454,7 +454,7 @@ if __name__ == "__main__":
     plt.subplot(211)  
     plt.plot(history.history['trans_fc3_acc'])  
     plt.plot(history.history['rot_fc3_acc'])
-    plt.plot(history.history['val_trans3_fc_acc'])   
+    plt.plot(history.history['val_trans_fc3_acc'])   
     plt.plot(history.history['val_rot_fc3_acc'])
 
     plt.plot(history.history['trans_fc2_acc'])  
