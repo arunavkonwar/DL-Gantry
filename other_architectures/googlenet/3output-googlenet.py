@@ -427,7 +427,7 @@ if __name__ == "__main__":
 
     #update
 
-    iter=1
+    iter=3
     # Train:
     print('Start training ...')
     start = time.time()
@@ -452,29 +452,40 @@ if __name__ == "__main__":
     plt.figure(1)  
 
     plt.subplot(211)  
-    plt.plot(history.history['trans_fc_acc'])  
-    plt.plot(history.history['rot_fc_acc'])
-    plt.plot(history.history['val_trans_fc_acc'])   
-    plt.plot(history.history['val_rot_fc_acc'])
+    plt.plot(history.history['trans_fc3_acc'])  
+    plt.plot(history.history['rot_fc3_acc'])
+    plt.plot(history.history['val_trans3_fc_acc'])   
+    plt.plot(history.history['val_rot_fc3_acc'])
+
+    plt.plot(history.history['trans_fc2_acc'])  
+    plt.plot(history.history['rot_fc2_acc'])
+    plt.plot(history.history['val_trans_fc2_acc'])   
+    plt.plot(history.history['val_rot_fc2_acc'])
+
+    plt.plot(history.history['trans_fc1_acc'])  
+    plt.plot(history.history['rot_fc1_acc'])
+    plt.plot(history.history['val_trans_fc1_acc'])   
+    plt.plot(history.history['val_rot_fc1_acc'])
+
     plt.title('model accuracy')  
     plt.ylabel('accuracy')  
     plt.xlabel('epoch')  
-    plt.legend(['trans_fc_acc', 'rot_fc_acc', 'val_trans_fc_acc', 'val_rot_fc_acc'], loc='upper left')  
+    plt.legend(['trans_fc3_acc', 'rot_fc3_acc', 'val_trans_fc3_acc', 'val_rot_fc3_acc','trans_fc2_acc', 'rot_fc2_acc', 'val_trans_fc2_acc', 'val_rot_fc2_acc','trans_fc1_acc', 'rot_fc1_acc', 'val_trans_fc1_acc', 'val_rot_fc1_acc'], loc='upper left')  
 
     # summarize history for loss  
 
     plt.subplot(212)  
     plt.plot(history.history['loss'])
-    plt.plot(history.history['trans_fc_loss'])  
-    plt.plot(history.history['rot_fc_loss'])  
-    plt.plot(history.history['val_trans_fc_loss'])
-    plt.plot(history.history['val_rot_fc_loss'])
+    plt.plot(history.history['trans_fc3_loss'])  
+    plt.plot(history.history['rot_fc3_loss'])  
+    plt.plot(history.history['trans_fc1_loss'])
+    plt.plot(history.history['rot_fc1_loss'])
     plt.plot(history.history['val_loss'])  
     plt.title('model loss')  
     plt.ylabel('loss')  
     plt.xlabel('epoch')  
-    plt.legend(['loss', 'trans_fc_loss', 'rot_fc_loss', 'val_trans_fc_loss', 'val_rot_fc_loss', 'val_loss'], loc='upper left')  
-    plt.savefig('3output-googlenet_1.png')
+    plt.legend(['loss', 'trans_fc3_loss', 'rot_fc3_loss', 'trans_fc1_loss', 'rot_fc1_loss', 'val_loss'], loc='upper left')  
+    plt.savefig('3output-googlenet_3.png')
 
 
-    model.save_weights('/local/akonwar/trained_weights/3output-googlenet_1.h5')       
+    model.save_weights('/local/akonwar/trained_weights/3output-googlenet_3.h5')       
