@@ -427,7 +427,7 @@ if __name__ == "__main__":
 
     #update
 
-    iter=3
+    iter=150
     # Train:
     print('Start training ...')
     start = time.time()
@@ -485,7 +485,7 @@ if __name__ == "__main__":
     plt.ylabel('loss')  
     plt.xlabel('epoch')  
     plt.legend(['loss', 'trans_fc3_loss', 'rot_fc3_loss', 'trans_fc1_loss', 'rot_fc1_loss', 'val_loss'], loc='upper left')  
-    plt.savefig('3output-googlenet_3.png')
+    plt.savefig('3output-googlenet_150.png')
 
 
-    model.save_weights('/local/akonwar/trained_weights/3output-googlenet_3.h5')       
+    model.save_weights('/local/akonwar/trained_weights/3output-googlenet_150.h5')       
