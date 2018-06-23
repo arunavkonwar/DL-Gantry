@@ -289,12 +289,12 @@ def InceptionV1(include_top=True,
 
 
     y = Flatten(name='flatten_y')(Mixed_4b) 
-    y = Dense(2048, name='last_fc1')(y)
+    #y = Dense(2048, name='last_fc1')(y)
     trans_fc1 = Dense(3,name='trans_fc1')(y)
     rot_fc1 = Dense(3,name='rot_fc1')(y)
 
     z = Flatten(name='flatten_z')(Mixed_4e)
-    z = Dense(2048, name='last_fc2')(z)
+    #z = Dense(2048, name='last_fc2')(z)
     trans_fc2 = Dense(3,name='trans_fc2')(z)
     rot_fc2 = Dense(3,name='rot_fc2')(z)
 
