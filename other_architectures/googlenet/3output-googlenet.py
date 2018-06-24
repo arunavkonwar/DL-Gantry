@@ -279,7 +279,7 @@ def InceptionV1(include_top=True,
                 WEIGHTS_PATH_NO_TOP,
                 cache_subdir='models',
                 md5_hash='6fa8ecdc5f6c402a59909437f0f5c975')
-        model.load_weights(weights_path)
+        #model.load_weights(weights_path)
         if K.backend() == 'theano':
             convert_all_kernels_in_model(model)
             
@@ -485,7 +485,7 @@ if __name__ == "__main__":
     plt.ylabel('loss')  
     plt.xlabel('epoch')  
     plt.legend(['loss', 'trans_fc3_loss', 'rot_fc3_loss', 'trans_fc1_loss', 'rot_fc1_loss', 'val_loss'], loc='upper left')  
-    plt.savefig('3output-googlenet_150.png')
+    plt.savefig('3output-googlenet_150_no-weights.png')
 
 
-    model.save_weights('/local/akonwar/trained_weights/3output-googlenet_150.h5')       
+    model.save_weights('/local/akonwar/trained_weights/3output-googlenet_150_no-weights.h5')       
