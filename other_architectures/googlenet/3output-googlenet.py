@@ -338,7 +338,7 @@ if __name__ == "__main__":
 
     batch_size = 14
 
-'''
+    '''
     def euc_loss1x(y_true, y_pred):
         lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
         return (0.3 * lx)
@@ -362,7 +362,7 @@ if __name__ == "__main__":
     def euc_loss3q(y_true, y_pred):
         lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
         return (500 * lq)
-'''      
+    '''      
 
     def euc_loss1x(y_true, y_pred):
         lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
@@ -464,18 +464,18 @@ if __name__ == "__main__":
           epochs=iter,
           batch_size=batch_size, validation_data = (x_data_train, [y_data_train_trans,y_data_train_rot,y_data_train_trans,y_data_train_rot,y_data_train_trans,y_data_train_rot] ), shuffle = True, verbose = 1) 
 
-    
+
     #for test mode
     '''
     print('Test loss:', score[0])
     print('Test accuracy:', score[1])
     '''
-    
+
     end = time.time()
     print ("Model took %0.2f seconds to train"%(end - start))
-    
+
     print(history.history.keys()) 
-    
+
     # summarize history for accuracy 
     plt.figure(1)  
 
