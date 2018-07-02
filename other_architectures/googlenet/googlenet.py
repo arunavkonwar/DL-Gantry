@@ -305,193 +305,193 @@ def preprocess_input(x):
     return x
 
 if __name__ == "__main__":
-    import os
-    import numpy as np
-    from keras import optimizers
-    from keras.models import Sequential
-    from keras.models import load_model
-    from keras.layers import Activation
-    from keras.layers.core import Dense, Flatten
-    from keras.optimizers import Adam, SGD
-    from keras.metrics import categorical_crossentropy
-    #import matplotlib.pyplot as plt
-    import matplotlib
-    matplotlib.use('Agg')
-    from matplotlib import pyplot as plt
-    import h5py
-    from keras.utils import plot_model
-    import time
-    from keras.callbacks import ModelCheckpoint
+	import os
+	import numpy as np
+	from keras import optimizers
+	from keras.models import Sequential
+	from keras.models import load_model
+	from keras.layers import Activation
+	from keras.layers.core import Dense, Flatten
+	from keras.optimizers import Adam, SGD
+	from keras.metrics import categorical_crossentropy
+	#import matplotlib.pyplot as plt
+	import matplotlib
+	matplotlib.use('Agg')
+	from matplotlib import pyplot as plt
+	import h5py
+	from keras.utils import plot_model
+	import time
+	from keras.callbacks import ModelCheckpoint
 
-    np.random.seed(7) # for reproducibility
+	np.random.seed(7) # for reproducibility
 
-    batch_size = 14
+	batch_size = 14
 
-'''
-    def euc_loss1x(y_true, y_pred):
-        lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
-        return (0.3 * lx)
+	'''
+	def euc_loss1x(y_true, y_pred):
+	lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+	return (0.3 * lx)
 
-    def euc_loss1q(y_true, y_pred):
-        lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
-        return (150 * lq)
+	def euc_loss1q(y_true, y_pred):
+	lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+	return (150 * lq)
 
-    def euc_loss2x(y_true, y_pred):
-        lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
-        return (0.3 * lx)
+	def euc_loss2x(y_true, y_pred):
+	lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+	return (0.3 * lx)
 
-    def euc_loss2q(y_true, y_pred):
-        lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
-        return (150 * lq)
+	def euc_loss2q(y_true, y_pred):
+	lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+	return (150 * lq)
 
-    def euc_loss3x(y_true, y_pred):
-        lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
-        return (1 * lx)
+	def euc_loss3x(y_true, y_pred):
+	lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+	return (1 * lx)
 
-    def euc_loss3q(y_true, y_pred):
-        lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
-        return (500 * lq)
+	def euc_loss3q(y_true, y_pred):
+	lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+	return (500 * lq)
 
-'''
-
-
-    def euc_loss1x(y_true, y_pred):
-        lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
-        return (1 * lx)
-
-    def euc_loss1q(y_true, y_pred):
-        lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
-        return (1 * lq)
-
-    def euc_loss2x(y_true, y_pred):
-        lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
-        return (1 * lx)
-
-    def euc_loss2q(y_true, y_pred):
-        lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
-        return (1 * lq)
-
-    def euc_loss3x(y_true, y_pred):
-        lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
-        return (1 * lx)
-
-    def euc_loss3q(y_true, y_pred):
-        lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
-        return (1 * lq)
-        
-        
-
-    model = InceptionV1(include_top=False, weights='imagenet')
-    print(model.summary())
-    # plot graph
-    plot_model(model, to_file='single-output-model.png')
+	'''
 
 
-    model = InceptionV1(include_top=True, weights='imagenet')
-    '''
-    img_path = 'elephant.jpg'
-    img = image.load_img(img_path, target_size=(224, 224))
-    x = image.img_to_array(img)
-    x = np.expand_dims(x, axis=0)
+	def euc_loss1x(y_true, y_pred):
+		lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+		return (1 * lx)
 
-    x = preprocess_input(x)
-    '''
+	def euc_loss1q(y_true, y_pred):
+		lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+		return (1 * lq)
+
+	def euc_loss2x(y_true, y_pred):
+		lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+		return (1 * lx)
+
+	def euc_loss2q(y_true, y_pred):
+		lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+		return (1 * lq)
+
+	def euc_loss3x(y_true, y_pred):
+		lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+		return (1 * lx)
+
+	def euc_loss3q(y_true, y_pred):
+		lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+		return (1 * lq)
 
 
 
-    y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_4DOF_new.txt'
+	model = InceptionV1(include_top=False, weights='imagenet')
+	print(model.summary())
+	# plot graph
+	plot_model(model, to_file='single-output-model.png')
 
-    y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1,2])
-    y_data_train = y_data[:]
-    y_data_train_trans = np.array(y_data_train)
 
-    y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[3,4,5])
-    y_data_train = y_data[:]
-    y_data_train_rot = np.array(y_data_train)
-    #########################################
+	model = InceptionV1(include_top=True, weights='imagenet')
+	'''
+	img_path = 'elephant.jpg'
+	img = image.load_img(img_path, target_size=(224, 224))
+	x = image.img_to_array(img)
+	x = np.expand_dims(x, axis=0)
 
-    #for 8k images dataset
-    #h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k.h5','r')
-    #h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k_by255.h5','r')
-    h5f = h5py.File('/local/akonwar/image_data/4DOF_new.h5','r')
-
-    x_data_train = h5f['dataset_1'][:]
-    x_data_train = np.array(x_data_train)
-
-    #h5f = h5py.File('/local/akonwar/image_data/validation_images_in_h5_format_8k.h5','r')
-    h5f = h5py.File('/local/akonwar/image_data/4DOF_new.h5','r')
-    x_data_valid = h5f['dataset_1'][:]
-    x_data_valid = np.array(x_data_valid)
-
-    y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_4DOF_new.txt'
-    y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1,2,3,4,5])
-    y_data_valid = y_data[:]
-    y_data_valid = np.array(y_data_valid)
-    print(y_data_valid)
+	x = preprocess_input(x)
+	'''
 
 
 
-    # ======================================================================                     
-    # Configure the training process:
-    print('Preparing training ...')
+	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_4DOF_new.txt'
 
-    #sgd = SGD(lr=1e-5, momentum=0.9, decay=0.00139, nesterov=True) 
-    adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
-    #model.compile(optimizer=adam, loss= {'translation': euc_loss1x, 'rotation': euc_loss3q}, metrics=['accuracy'])
-    model.compile(optimizer=adam, loss= {'trans_fc': euc_loss1x, 'rot_fc': euc_loss1q
-                                        }, metrics=['accuracy'])
-    #model.compile(optimizer=sgd, loss='mean_squared_error', metrics=['accuracy'])
+	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1,2])
+	y_data_train = y_data[:]
+	y_data_train_trans = np.array(y_data_train)
 
-    #update
+	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[3,4,5])
+	y_data_train = y_data[:]
+	y_data_train_rot = np.array(y_data_train)
+	#########################################
 
-    iter=3
-    # Train:
-    print('Start training ...')
-    start = time.time()
+	#for 8k images dataset
+	#h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k.h5','r')
+	#h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k_by255.h5','r')
+	h5f = h5py.File('/local/akonwar/image_data/4DOF_new.h5','r')
 
-    history = model.fit(x = x_data_train, y = [y_data_train_trans,y_data_train_rot],
-          epochs=iter,
-          batch_size=batch_size, validation_data = ( x_data_train, [y_data_train_trans,y_data_train_rot] ), shuffle = True, verbose = 1) 
+	x_data_train = h5f['dataset_1'][:]
+	x_data_train = np.array(x_data_train)
 
-    
-    #for test mode
-    '''
-    print('Test loss:', score[0])
-    print('Test accuracy:', score[1])
-    '''
-    
-    end = time.time()
-    print ("Model took %0.2f seconds to train"%(end - start))
-    
-    print(history.history.keys()) 
-    
-    # summarize history for accuracy 
-    plt.figure(1)  
+	#h5f = h5py.File('/local/akonwar/image_data/validation_images_in_h5_format_8k.h5','r')
+	h5f = h5py.File('/local/akonwar/image_data/4DOF_new.h5','r')
+	x_data_valid = h5f['dataset_1'][:]
+	x_data_valid = np.array(x_data_valid)
 
-    plt.subplot(211)  
-    plt.plot(history.history['trans_fc_acc'])  
-    plt.plot(history.history['rot_fc_acc'])
-    plt.plot(history.history['val_trans_fc_acc'])   
-    plt.plot(history.history['val_rot_fc_acc'])
-    plt.title('model accuracy')  
-    plt.ylabel('accuracy')  
-    plt.xlabel('epoch')  
-    plt.legend(['trans_fc_acc', 'rot_fc_acc', 'val_trans_fc_acc', 'val_rot_fc_acc'], loc='upper left')  
-
-    # summarize history for loss  
-
-    plt.subplot(212)  
-    plt.plot(history.history['loss'])
-    plt.plot(history.history['trans_fc_loss'])  
-    plt.plot(history.history['rot_fc_loss'])  
-    plt.plot(history.history['val_trans_fc_loss'])
-    plt.plot(history.history['val_rot_fc_loss'])
-    plt.plot(history.history['val_loss'])  
-    plt.title('model loss')  
-    plt.ylabel('loss')  
-    plt.xlabel('epoch')  
-    plt.legend(['loss', 'trans_fc_loss', 'rot_fc_loss', 'val_trans_fc_loss', 'val_rot_fc_loss', 'val_loss'], loc='upper left')  
-    plt.savefig('googlenet_single-output_imagenet_iter-3.png')
+	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_4DOF_new.txt'
+	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1,2,3,4,5])
+	y_data_valid = y_data[:]
+	y_data_valid = np.array(y_data_valid)
+	print(y_data_valid)
 
 
-    model.save_weights('/local/akonwar/trained_weights/googlenet_single-output_imagenet_iter-3.h5')       
+
+	# ======================================================================                     
+	# Configure the training process:
+	print('Preparing training ...')
+
+	#sgd = SGD(lr=1e-5, momentum=0.9, decay=0.00139, nesterov=True) 
+	adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
+	#model.compile(optimizer=adam, loss= {'translation': euc_loss1x, 'rotation': euc_loss3q}, metrics=['accuracy'])
+	model.compile(optimizer=adam, loss= {'trans_fc': euc_loss1x, 'rot_fc': euc_loss1q
+		                        }, metrics=['accuracy'])
+	#model.compile(optimizer=sgd, loss='mean_squared_error', metrics=['accuracy'])
+
+	#update
+
+	iter=3
+	# Train:
+	print('Start training ...')
+	start = time.time()
+
+	history = model.fit(x = x_data_train, y = [y_data_train_trans,y_data_train_rot],
+	  epochs=iter,
+	  batch_size=batch_size, validation_data = ( x_data_train, [y_data_train_trans,y_data_train_rot] ), shuffle = True, verbose = 1) 
+
+
+	#for test mode
+	'''
+	print('Test loss:', score[0])
+	print('Test accuracy:', score[1])
+	'''
+
+	end = time.time()
+	print ("Model took %0.2f seconds to train"%(end - start))
+
+	print(history.history.keys()) 
+
+	# summarize history for accuracy 
+	plt.figure(1)  
+
+	plt.subplot(211)  
+	plt.plot(history.history['trans_fc_acc'])  
+	plt.plot(history.history['rot_fc_acc'])
+	plt.plot(history.history['val_trans_fc_acc'])   
+	plt.plot(history.history['val_rot_fc_acc'])
+	plt.title('model accuracy')  
+	plt.ylabel('accuracy')  
+	plt.xlabel('epoch')  
+	plt.legend(['trans_fc_acc', 'rot_fc_acc', 'val_trans_fc_acc', 'val_rot_fc_acc'], loc='upper left')  
+
+	# summarize history for loss  
+
+	plt.subplot(212)  
+	plt.plot(history.history['loss'])
+	plt.plot(history.history['trans_fc_loss'])  
+	plt.plot(history.history['rot_fc_loss'])  
+	plt.plot(history.history['val_trans_fc_loss'])
+	plt.plot(history.history['val_rot_fc_loss'])
+	plt.plot(history.history['val_loss'])  
+	plt.title('model loss')  
+	plt.ylabel('loss')  
+	plt.xlabel('epoch')  
+	plt.legend(['loss', 'trans_fc_loss', 'rot_fc_loss', 'val_trans_fc_loss', 'val_rot_fc_loss', 'val_loss'], loc='upper left')  
+	plt.savefig('googlenet_single-output_imagenet_iter-3.png')
+
+
+	model.save_weights('/local/akonwar/trained_weights/googlenet_single-output_imagenet_iter-3.h5')       
