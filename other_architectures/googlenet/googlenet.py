@@ -278,7 +278,11 @@ def InceptionV1(include_top=True,
                 WEIGHTS_PATH_NO_TOP,
                 cache_subdir='models',
                 md5_hash='6fa8ecdc5f6c402a59909437f0f5c975')
-        #model.load_weights(weights_path)
+                
+        #load weights file
+        model.load_weights(weights_path)
+        
+        
         if K.backend() == 'theano':
             convert_all_kernels_in_model(model)
             
@@ -323,7 +327,7 @@ if __name__ == "__main__":
 
     batch_size = 14
 
-
+'''
     def euc_loss1x(y_true, y_pred):
         lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
         return (0.3 * lx)
@@ -348,12 +352,39 @@ if __name__ == "__main__":
         lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
         return (500 * lq)
 
+'''
 
+
+    def euc_loss1x(y_true, y_pred):
+        lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+        return (1 * lx)
+
+    def euc_loss1q(y_true, y_pred):
+        lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+        return (1 * lq)
+
+    def euc_loss2x(y_true, y_pred):
+        lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+        return (1 * lx)
+
+    def euc_loss2q(y_true, y_pred):
+        lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+        return (1 * lq)
+
+    def euc_loss3x(y_true, y_pred):
+        lx = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+        return (1 * lx)
+
+    def euc_loss3q(y_true, y_pred):
+        lq = K.sqrt(K.sum(K.square(y_true[:,:] - y_pred[:,:]), axis=1, keepdims=True))
+        return (1 * lq)
+        
+        
 
     model = InceptionV1(include_top=False, weights='imagenet')
     print(model.summary())
     # plot graph
-    plot_model(model, to_file='modified_check.png')
+    plot_model(model, to_file='single-output-model.png')
 
 
     model = InceptionV1(include_top=True, weights='imagenet')
@@ -413,7 +444,7 @@ if __name__ == "__main__":
 
     #update
 
-    iter=150
+    iter=3
     # Train:
     print('Start training ...')
     start = time.time()
@@ -460,7 +491,7 @@ if __name__ == "__main__":
     plt.ylabel('loss')  
     plt.xlabel('epoch')  
     plt.legend(['loss', 'trans_fc_loss', 'rot_fc_loss', 'val_trans_fc_loss', 'val_rot_fc_loss', 'val_loss'], loc='upper left')  
-    plt.savefig('googlenet_150_no-weights_iter-150.png')
+    plt.savefig('googlenet_single-output_imagenet_iter-3.png')
 
 
-    model.save_weights('/local/akonwar/trained_weights/googlenet_150_no-weights_iter-150.h5')       
+    model.save_weights('/local/akonwar/trained_weights/googlenet_single-output_imagenet_iter-3.h5')       
