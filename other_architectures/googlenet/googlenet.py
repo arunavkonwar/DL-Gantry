@@ -491,7 +491,7 @@ if __name__ == "__main__":
 	plt.ylabel('loss')  
 	plt.xlabel('epoch')  
 	plt.legend(['loss', 'trans_fc_loss', 'rot_fc_loss', 'val_trans_fc_loss', 'val_rot_fc_loss', 'val_loss'], loc='upper left')  
-	plt.savefig('googlenet_single-output_imagenet_iter-150.png')
+	plt.savefig('googlenet_single-output_imagenet_iter-150-6dof_high-precision.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/googlenet_single-output_imagenet_iter-150.h5')       
+	model.save_weights('/local/akonwar/trained_weights/googlenet_single-output_imagenet_iter-150-6dof_high-precision.h5')       
