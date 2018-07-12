@@ -399,7 +399,7 @@ if __name__ == "__main__":
 
 
 
-	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_high_precision_3k.txt'
+	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_high_precision_5k_1k.txt'
 
 	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1,2])
 	y_data_train = y_data[:]
@@ -413,17 +413,17 @@ if __name__ == "__main__":
 	#for 8k images dataset
 	#h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k.h5','r')
 	#h5f = h5py.File('/local/akonwar/image_data/images_in_h5_format_8k_by255.h5','r')
-	h5f = h5py.File('/local/akonwar/image_data/6dof_high-precision_3k.h5','r')
+	h5f = h5py.File('/local/akonwar/image_data/6dof_high-precision_5k_1k.h5','r')
 
 	x_data_train = h5f['dataset_1'][:]
 	x_data_train = np.array(x_data_train)
 
 	#h5f = h5py.File('/local/akonwar/image_data/validation_images_in_h5_format_8k.h5','r')
-	h5f = h5py.File('/local/akonwar/image_data/6dof_high-precision_3k.h5','r')
+	h5f = h5py.File('/local/akonwar/image_data/6dof_high-precision_5k_1k.h5','r')
 	x_data_valid = h5f['dataset_1'][:]
 	x_data_valid = np.array(x_data_valid)
 
-	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_high_precision_3k.txt'
+	y_filename ='/udd/akonwar/code/deep-learning-for-visual-servoing/data/data_high_precision_5k_1k.txt'
 	y_data = np.loadtxt(y_filename, delimiter='  ', usecols=[0,1,2,3,4,5])
 	y_data_valid = y_data[:]
 	y_data_valid = np.array(y_data_valid)
@@ -491,7 +491,7 @@ if __name__ == "__main__":
 	plt.ylabel('loss')  
 	plt.xlabel('epoch')  
 	plt.legend(['loss', 'trans_fc_loss', 'rot_fc_loss', 'val_trans_fc_loss', 'val_rot_fc_loss', 'val_loss'], loc='upper left')  
-	plt.savefig('googlenet_single-output_imagenet_iter-150-6dof_high-precision_3k.png')
+	plt.savefig('googlenet_single-output_imagenet_iter-150-6dof_high-precision_5k_1k.png')
 
 
-	model.save_weights('/local/akonwar/trained_weights/googlenet_single-output_imagenet_iter-150-6dof_high-precision_3k.h5')       
+	model.save_weights('/local/akonwar/trained_weights/googlenet_single-output_imagenet_iter-150-6dof_high-precision_5k_1k.h5')       
